@@ -8,6 +8,7 @@
 	    <script type="text/javascript" src="cordova.js"></script>
 	    <link href='http://fonts.googleapis.com/css?family=Cantata+One' rel='stylesheet' type='text/css'>
 	    <link rel="stylesheet" type="text/css" href="css/default.css" />
+	    <script src="outsource/admob.js" type="text/javascript"></script>
 	    <script src="js-objects/eventManager.class.js" type="text/javascript"></script>
 	    <script src="js-objects/layoutManager.class.js" type="text/javascript"></script>
 	    <script src="js-objects/objectManager.class.js" type="text/javascript"></script>
@@ -15,7 +16,7 @@
 	    <script src="js-objects/requestManager.class.js" type="text/javascript"></script>
 	    <script src="architect.class.js" type="text/javascript"></script>
   	</head>
-  	<body>
+  	<body onload="onLoad()" onresize="onResize()">
 		<script type="text/javascript">
 			eventM 		= new eventManager();
 			requestM	= new requestManager();
