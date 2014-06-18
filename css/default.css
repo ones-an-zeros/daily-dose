@@ -1,0 +1,77 @@
+body{
+    margin:0px;
+    padding:0px;
+    font-family: 'Cantata One', serif;
+   /* Other transform properties here */
+}
+#viewport{
+    -moz-transform-origin: 0 0;
+    -o-transform-origin: 0 0;
+    -webkit-transform-origin: 0 0;
+    -webkit-transform: translate3d(0,0,0);
+  	-moz-transform: translate3d(0,0,0);
+  	-ms-transform: translate3d(0,0,0);
+  	-o-transform: translate3d(0,0,0);
+  	transform: translate3d(0,0,0);
+  	margin:0px;
+  	padding:0px;
+  	position:fixed;
+  	top:0px;
+  	left:0px;
+  	overflow:hidden;
+  	background:#E8E7DF;
+}
+#header{
+	width:90%;
+	margin:0px auto 0px auto;
+	border-bottom:2px solid #E87E74;
+	border-left:2px solid #E87E74;
+	border-right:2px solid #E87E74;
+	height:75px;
+	-webkit-border-bottom-right-radius: 35px;
+	-webkit-border-bottom-left-radius: 35px;
+	-moz-border-radius-bottomright: 35px;
+	-moz-border-radius-bottomleft: 35px;
+	border-bottom-right-radius: 35px;
+	border-bottom-left-radius: 35px;
+	background:#B32E22;
+	line-height:75px;
+	text-align:center;
+	font-size:45px;
+	color:#F0D4C7;
+	text-shadow: 2px 1px 1px #bbbaba;
+}
+#quote{
+	width:850px;
+	background:url(../images/sticky.png);
+	height:850px;
+	margin:20px 0px 0px 4%;
+	background-size: 100%;
+	position:relative;
+}
+#quote #quote-date{
+	position:absolute;
+	top:65px;
+	left:430px;
+	width:300px;
+	height:50px;
+	font-size:24px;
+	line-height:50px;
+}
+#quote #quote-text{
+	position:absolute;
+	top:130px;
+	left:80px;
+	width:650px;
+	height:550px;
+	font-size:40px;
+}
+#quote #quote-author{
+	position:absolute;
+	top:700px;
+	left:100px;
+	width:400px;
+	height:50px;
+	font-size:24px;
+	line-height:50px;	
+}
