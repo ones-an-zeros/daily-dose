@@ -27,13 +27,14 @@ architect.prototype.buildHeader = function(){
 architect.prototype.buildQuoteBox = function(){
 	var viewport = this.viewport;
 	this.displayedQuote = this.currentDate;
-	var quote = objectM.create('DIV',{'id':'quote'},'',viewport);
+	var quoteBg = objectM.create('DIV',{'id':'quote-bg'},'',viewport);
+	var quote = objectM.create('DIV',{'id':'quote'},'',quoteBg);
 	this.quoteDate = objectM.create('DIV',{'id':'quote-date'},'',quote);
 		objectM.appendText(this.currentDate, this.quoteDate);
 	this.quoteText = objectM.create('DIV',{'id':'quote-text'},'',quote);
-		objectM.appendText(this.quotes[this.currentDate]['quote'], this.quoteText);
+		objectM.appendText('"'+this.quotes[this.currentDate]['quote']+'"', this.quoteText);
 	this.quoteAuthor = objectM.create('DIV',{'id':'quote-author'},'',quote);
-		objectM.appendText(this.quotes[this.currentDate]['author'], this.quoteAuthor);
+		objectM.appendText('- '+this.quotes[this.currentDate]['author'], this.quoteAuthor);
 	var navigation = objectM.create('DIV',{'id':'navigation'},'',viewport);
 	var previous = objectM.create('BUTTON',{'id':'previous','onclick':'architect.changeQuote(\'PREV\');'},'',navigation);
 		objectM.appendText('Previous',previous);
