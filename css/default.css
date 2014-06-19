@@ -2,12 +2,6 @@ body{
     margin:0px;
     padding:0px;
     font-family: 'Cinzel Decorative', cursive;
-   
-   backface-visibility:hidden;
--webkit-backface-visibility:hidden;
- overflow: hidden;
--ms-content-zooming: none;
--ms-touch-action:none;
 }
 #viewport{
     -moz-transform-origin: 0 0;
@@ -20,10 +14,11 @@ body{
   	transform: translate3d(0,0,0);
   	margin:0px;
   	padding:0px;
-  	position:relative;
+  	position:fixed;
+  	top:0px;
+  	left:0px;
   	background:url(../images/temp.jpg);
   	background-size:100%;
-  	overflow:hidden;
 }
 #header{
 	width:100%;
