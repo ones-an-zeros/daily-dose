@@ -24,9 +24,10 @@
 			popupM 		= new popupManager();
 			layoutM 	= new layoutManager(1080,1920);
 			architect 	= new architect();
-			document.addEventListener("deviceready", 
-				architect.init(),
-			false);
+			document.addEventListener("deviceready", function(){
+					alert(typeof window.plugin.notification);
+					architect.init()
+			}, false);
 		</script>
  	</body>
 </html>
