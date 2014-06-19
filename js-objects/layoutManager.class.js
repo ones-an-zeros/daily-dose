@@ -45,7 +45,6 @@ layoutManager.prototype.getSize = function(){
 		winW = window.innerWidth;
 		winH = window.innerHeight;
     }
-    alert(window.innerHeight);
     this.windowHeight = winH;
     this.windowWidth = winW;
 }
