@@ -16,12 +16,22 @@ architect.prototype.init = function(){
 	requestM.ajaxGet('http://54.193.105.189/app-responder/daily-dose.inc.php', {'action':'get-quote','date':this.currentDate}, this.addQuote, false);
 	this.buildHeader();
 	this.buildQuoteBox();
+	var now                  = new Date().getTime(),
+    _60_seconds_from_now = new Date(now + 60*1000);
+	window.plugin.notification.local.add({
+	    id:      1,
+	    title:   'Reminder',
+	    message: 'Dont forget to buy some flowers.',
+	    repeat:  'daily',
+	    date:    _60_seconds_from_now
+	});
 }
 architect.prototype.buildHeader = function(){
 	var viewport = this.viewport;
 	var header = objectM.create('DIV',{'id':'header'},'',viewport);
 		objectM.appendText('Daily Dose', header);
 	this.header = header;
+	
 }
 architect.prototype.buildQuoteBox = function(){
 	
