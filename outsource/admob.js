@@ -2,7 +2,6 @@ var admob_ios_key = '';
 var admob_android_key = 'ca-app-pub-5231668809835913/2089722986';
 var adId = (navigator.userAgent.indexOf('Android') >=0) ? admob_android_key : admob_ios_key;
 function onLoad() {
-	/*
 	document.addEventListener("deviceready", onDeviceReady, false);
 	
 	// more callback to handle Ad events
@@ -16,7 +15,6 @@ function onLoad() {
 	});
 	document.addEventListener('onLeaveToAd', function(){
 	});
-	*/
 }
 function createAd() {
 	if ( window.plugins && window.plugins.AdMob ) {

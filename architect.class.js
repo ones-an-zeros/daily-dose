@@ -38,16 +38,15 @@ architect.prototype.buildQuoteBox = function(){
 	var navigation = objectM.create('DIV',{'id':'navigation'},'',viewport);
 	var previous = objectM.create('BUTTON',{'id':'previous','onclick':'architect.changeQuote(\'PREV\');'},'',navigation);
 		objectM.appendText('<',previous);
-	var twitter = objectM.create('BUTTON',{'id':'twitter','onclick':'architect.changeQuote(\'PREV\');'},'',navigation);
-		objectM.appendText('Twitter',twitter);
 	var facebook = objectM.create('BUTTON',{'id':'facebook','onclick':'architect.shareFB();'},'',navigation);
-		objectM.appendText('Facebook',facebook);
+		objectM.appendText('Share',facebook);
 	var next = objectM.create('BUTTON',{'id':'previous','onclick':'architect.changeQuote(\'NEXT\');'},'',navigation);
 		objectM.appendText('>',next);
 		
 }
 architect.prototype.shareFB = function(){
-	window.plugins.socialsharing.share('Message only')
+	window.plugins.socialsharing.share(architect.quoteText+'<br />Shared Via Daily Dose');
+	
 }
 architect.prototype.addQuote = function( data ){
 	data = JSON.parse(data);

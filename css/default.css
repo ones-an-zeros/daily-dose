@@ -89,19 +89,13 @@ body{
 	font-weight:bold;
 	cursor:pointer;
 }
-#navigation #twitter{
-	width:40%;
-	height:100px;
-	font-size:60px;
-	font-weight:bold;
-	cursor:pointer;
-}
 #navigation #facebook{
-	width:40%;
+	width:80%;
 	height:100px;
 	font-size:60px;
 	font-weight:bold;
 	cursor:pointer;
+	text-align:center;
 }
 #navigation #next{
 	width:50%;
