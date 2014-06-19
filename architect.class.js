@@ -14,8 +14,8 @@ function architect(){
 }
 architect.prototype.init = function(){
 	requestM.ajaxGet('http://54.193.105.189/app-responder/daily-dose.inc.php', {'action':'get-quote','date':this.currentDate}, this.addQuote, false);
-	//this.buildHeader();
-	//this.buildQuoteBox();
+	this.buildHeader();
+	this.buildQuoteBox();
 }
 architect.prototype.buildHeader = function(){
 	var viewport = this.viewport;
