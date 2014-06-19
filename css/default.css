@@ -3,6 +3,7 @@ body{
     padding:0px;
     font-family: 'Cinzel Decorative', cursive;
    /* Other transform properties here */
+  overflow:hidden;
 }
 #viewport{
     -moz-transform-origin: 0 0;
@@ -18,6 +19,7 @@ body{
   	position:relative;
   	background:url(../images/temp.jpg);
   	background-size:100%;
+  	overflow:hidden;
 }
 #header{
 	width:100%;
