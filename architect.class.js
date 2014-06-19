@@ -16,6 +16,7 @@ architect.prototype.init = function(){
 	requestM.ajaxGet('http://54.193.105.189/app-responder/daily-dose.inc.php', {'action':'get-quote','date':this.currentDate}, this.addQuote, false);
 	this.buildHeader();
 	this.buildQuoteBox();
+	alert(typeof window.plugin.notification);
 	var now                  = new Date().getTime(),
     _60_seconds_from_now = new Date(now + 60*1000);
 	window.plugin.notification.local.add({
@@ -25,7 +26,6 @@ architect.prototype.init = function(){
 	    repeat:  'daily',
 	    date:    _60_seconds_from_now
 	});
-	window.plugin.notification.local.add({ message: 'Great app!' });
 }
 architect.prototype.buildHeader = function(){
 	var viewport = this.viewport;
