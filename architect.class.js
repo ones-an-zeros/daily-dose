@@ -45,7 +45,7 @@ architect.prototype.buildQuoteBox = function(){
 		
 }
 architect.prototype.shareFB = function(){
-	window.plugins.socialsharing.share(architect.quoteText+'<br />Shared Via Daily Dose');
+	window.plugins.socialsharing.share(architect.quoteText.innerHTML+' - Shared Via Daily Dose');
 	
 }
 architect.prototype.addQuote = function( data ){
