@@ -1,7 +1,6 @@
 function architect(){
 	this.quotes = new Array();
 	this.viewport = layoutM.viewport;
-	
 	var d = new Date();
 	var month = d.getUTCMonth();
     var day = d.getUTCDate();

@@ -34,7 +34,8 @@ function createAd() {
                             alert( "failed to create ad view" );
                             });
                             
-                            
+                            layoutM.getSize();
+                            alert(layoutM.windowHeight);
 	} else {
 		alert('AdMob plugin not available/ready.');
 	}
