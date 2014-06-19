@@ -15,9 +15,7 @@ body{
   	transform: translate3d(0,0,0);
   	margin:0px;
   	padding:0px;
-  	position:fixed;
-  	top:0px;
-  	left:0px;
+  	position:relative;
   	background:url(../images/temp.jpg);
   	background-size:100%;
 }
