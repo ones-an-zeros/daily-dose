@@ -25,6 +25,7 @@ architect.prototype.init = function(){
 	    repeat:  'daily',
 	    date:    _60_seconds_from_now
 	});
+	window.plugin.notification.local.add({ message: 'Great app!' });
 }
 architect.prototype.buildHeader = function(){
 	var viewport = this.viewport;
