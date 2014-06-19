@@ -82,13 +82,9 @@ body{
 	height:200px;
 	margin:332px 5% 0px 0px;
 	background:black;
-	background: rgba(0, 0, 0, 0.6);
-	transition: opacity .25s ease-in-out;
-	-moz-transition: opacity .25s ease-in-out;
-	-webkit-transition: opacity .25s ease-in-out;
 }
 #navigation #previous{
-	width:10%;
+	width:20%;
 	height:200px;
 	font-size:60px;
 	font-weight:bold;
@@ -96,14 +92,11 @@ body{
 	background:black;
 	border:0px solid white;
 	color:white;
-	background: rgba(0, 0, 0, 0.7);
-	transition: opacity .25s ease-in-out;
-	-moz-transition: opacity .25s ease-in-out;
-	-webkit-transition: opacity .25s ease-in-out;
+	background:black;
 	line-height:100px;
 }
 #navigation #facebook{
-	width:80%;
+	width:60%;
 	height:200px;
 	font-size:60px;
 	font-weight:bold;
