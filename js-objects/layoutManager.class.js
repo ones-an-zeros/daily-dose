@@ -31,19 +31,20 @@ layoutManager.prototype.isMobile = function() {
 layoutManager.prototype.getSize = function(){
     var winW = 630, winH = 460;
     if (document.body && document.body.offsetWidth) {
-	winW= document.body.offsetWidth;
-	winH = document.body.offsetHeight;
+		winW = document.body.offsetWidth;
+		winH = document.body.offsetHeight;
     }
     if (document.compatMode=='CSS1Compat' &&
-	document.documentElement &&
-	document.documentElement.offsetWidth ) {
-	winW = document.documentElement.offsetWidth;
-	winH = document.documentElement.offsetHeight;
+		document.documentElement &&
+		document.documentElement.offsetWidth ) {
+		winW = document.documentElement.offsetWidth;
+		winH = document.documentElement.offsetHeight;
     }
     if (window.innerWidth && window.innerHeight) {
-	winW = window.innerWidth;
-	winH = window.innerHeight;
+		winW = window.innerWidth;
+		winH = window.innerHeight;
     }
+    alert(window.innerHeight);
     this.windowHeight = winH;
     this.windowWidth = winW;
 }

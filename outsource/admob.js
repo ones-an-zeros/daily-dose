@@ -35,7 +35,6 @@ function createAd() {
                             });
                             
                             layoutM.getSize();
-                            alert(layoutM.windowHeight);
 	} else {
 		alert('AdMob plugin not available/ready.');
 	}
