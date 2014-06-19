@@ -11,7 +11,8 @@ layoutManager.prototype.drawStage = function(){
 	var scale = '-ms-transform: scale('+scaleWidth+');-webkit-transform: scale('+scaleWidth+');transform: scale('+scaleWidth+');';
 	if(this.isMobile()){
 		var scaleWidth = (this.windowWidth/this.width);
-		var scale = '-ms-transform: scale('+scaleWidth+');-webkit-transform: scale('+scaleWidth+');transform: scale('+scaleWidth+');';
+		var scaleHeight = (this.windowHeight/this.height);
+		var scale = '-ms-transform: scale('+scaleWidth+','+scaleHeight+');-webkit-transform: scale('+scaleWidth+','+scaleHeight+');transform: scale('+scaleWidth+','+scaleHeight+');';
 	} else {	
 		var scale = '-ms-transform: scale(.75);-webkit-transform: scale(.75);transform: scale(.75);';
 	}
