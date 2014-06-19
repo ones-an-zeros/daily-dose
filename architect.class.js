@@ -37,11 +37,26 @@ architect.prototype.buildQuoteBox = function(){
 		objectM.appendText('- '+this.quotes[this.currentDate]['author'], this.quoteAuthor);
 	var navigation = objectM.create('DIV',{'id':'navigation'},'',viewport);
 	var previous = objectM.create('BUTTON',{'id':'previous','onclick':'architect.changeQuote(\'PREV\');'},'',navigation);
-		objectM.appendText('Previous',previous);
+		objectM.appendText('<',previous);
+	var twitter = objectM.create('BUTTON',{'id':'twitter','onclick':'architect.changeQuote(\'PREV\');'},'',navigation);
+		objectM.appendText('Twitter',twitter);
+	var facebook = objectM.create('BUTTON',{'id':'facebook','onclick':'architect.shareFB();'},'',navigation);
+		objectM.appendText('Facebook',facebook);
 	var next = objectM.create('BUTTON',{'id':'previous','onclick':'architect.changeQuote(\'NEXT\');'},'',navigation);
-		objectM.appendText('Next',next);
+		objectM.appendText('>',next);
 		
-}	
+}
+architect.prototype.shareFB = function(){
+	window.plugins.socialsharing.shareViaFacebook(
+		architect.quoteText+'<br />Shared Via Daily Dose', null, null, 
+		function() {
+			alert('share ok')
+		}, 
+		function(errormsg){
+			alert(errormsg)
+		}
+	);
+}
 architect.prototype.addQuote = function( data ){
 	data = JSON.parse(data);
 	var dParts = data.date.split(" "); 
