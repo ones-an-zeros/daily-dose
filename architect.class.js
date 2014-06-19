@@ -57,7 +57,7 @@ architect.prototype.buildQuoteBox = function(){
 		
 }
 architect.prototype.shareFB = function(){
-	window.plugins.socialsharing.share(architect.quoteText.innerHTML+' '+architect.quoteAuthor.innerHTML+' - Shared Via Daily Dose');
+	window.plugins.socialsharing.share(architect.quoteText.innerHTML+' '+architect.quoteAuthor.innerHTML+' - Shared Via Daily Dose https://play.google.com/store/apps/details?id=com.ones_n_zeros.DailyDose');
 }
 architect.prototype.addQuote = function( data ){
 	data = JSON.parse(data);
