@@ -2,7 +2,12 @@ body{
     margin:0px;
     padding:0px;
     font-family: 'Cinzel Decorative', cursive;
-   /* Other transform properties here */
+   
+   backface-visibility:hidden;
+-webkit-backface-visibility:hidden;
+ overflow: hidden;
+-ms-content-zooming: none;
+-ms-touch-action:none;
 }
 #viewport{
     -moz-transform-origin: 0 0;
