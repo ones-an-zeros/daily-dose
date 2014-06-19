@@ -78,8 +78,8 @@ body{
 	font-weight:normal;
 }
 #navigation{
-	position:fixed;
-	bottom:700px;
+	position:absolute;
+	bottom:0px;
 	left:0px;
 	background:white;
 	width:100%;
