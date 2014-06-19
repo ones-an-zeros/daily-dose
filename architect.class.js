@@ -14,8 +14,8 @@ function architect(){
 }
 architect.prototype.init = function(){
 	requestM.ajaxGet('http://54.193.105.189/app-responder/daily-dose.inc.php', {'action':'get-quote','date':this.currentDate}, this.addQuote, false);
-	this.buildHeader();
-	this.buildQuoteBox();
+	//this.buildHeader();
+	//this.buildQuoteBox();
 }
 architect.prototype.buildHeader = function(){
 	var viewport = this.viewport;
@@ -24,6 +24,7 @@ architect.prototype.buildHeader = function(){
 	this.header = header;
 }
 architect.prototype.buildQuoteBox = function(){
+	
 	var viewport = this.viewport;
 	this.displayedQuote = this.currentDate;
 	var quoteBg = objectM.create('DIV',{'id':'quote-bg'},'',viewport);
@@ -39,6 +40,7 @@ architect.prototype.buildQuoteBox = function(){
 		objectM.appendText('Previous',previous);
 	var next = objectM.create('BUTTON',{'id':'previous','onclick':'architect.changeQuote(\'NEXT\');'},'',navigation);
 		objectM.appendText('Next',next);
+		
 }	
 architect.prototype.addQuote = function( data ){
 	data = JSON.parse(data);
