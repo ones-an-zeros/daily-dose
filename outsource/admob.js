@@ -2,19 +2,14 @@ var admob_ios_key = '';
 var admob_android_key = 'ca-app-pub-5231668809835913/8363255780';
 var adId = (navigator.userAgent.indexOf('Android') >=0) ? admob_android_key : admob_ios_key;
 function onLoad() {
-	document.addEventListener("deviceready", onDeviceReady, false);
-	
-	// more callback to handle Ad events
-	document.addEventListener('onReceiveAd', function(){
-	});
-	document.addEventListener('onFailedToReceiveAd', function(data){
-	});
-	document.addEventListener('onPresentAd', function(){
-	});
-	document.addEventListener('onDismissAd', function(){
-	});
-	document.addEventListener('onLeaveToAd', function(){
-	});
+	if(layoutM.isMobile==true){
+		document.addEventListener("deviceready", onDeviceReady, false);
+		document.addEventListener('onReceiveAd', function(){});
+		document.addEventListener('onFailedToReceiveAd', function(data){});
+		document.addEventListener('onPresentAd', function(){});
+		document.addEventListener('onDismissAd', function(){});
+		document.addEventListener('onLeaveToAd', function(){});
+	}
 }
 function createAd() {
 	if ( window.plugins && window.plugins.AdMob ) {
@@ -77,7 +72,9 @@ function onResize() {
     var msg = 'web view: ' + window.innerWidth + ' x ' + window.innerHeight;
     document.getElementById('sizeinfo').innerHTML = msg;
 }
-document.body.addEventListener('touchmove',function(e){
+/*
+if(layoutM.isMobile==true){
+	document.body.addEventListener('touchmove',function(e){
 	    e = e || window.event;
 	    var target = e.target || e.srcElement;
 	    //in case $altNav is a class:
@@ -94,3 +91,5 @@ document.body.addEventListener('touchmove',function(e){
 	    }
 	    //target is a reference to an $altNav element here, e is the event object, go mad
 	},false);
+}
+*/

@@ -24,9 +24,16 @@
 			popupM 		= new popupManager();
 			layoutM 	= new layoutManager(1080,1920);
 			architect 	= new architect();
-			document.addEventListener("deviceready", function(){
-				architect.init()
-			}, false);
+			if(layoutM.isMobile==true){
+				document.addEventListener("deviceready", function(){
+					architect.init();
+					document.addEventListener("backbutton", function(){
+						navigator.apprate.promptForRating();
+					}, false);
+				}, false);
+			} else {
+				architect.init();
+			}
 		</script>
  	</body>
 </html>
