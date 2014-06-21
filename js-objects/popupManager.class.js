@@ -1,33 +1,22 @@
 function popupManager(){
     this.stack = new Object();
-    this.canvas = document.getElementById('canvas');
+    this.canvas = document.getElementById('viewport');
     this.body = document.getElementsByTagName('body')[0];
 }
 popupManager.prototype.setPosition = function(obj,height,width){
-	var bodyHeight = (
-	    'innerHeight' in window? window.innerHeight :
-	    document.compatMode!=='BackCompat'? document.documentElement.clientHeight :
-	    document.body.clientHeight
-	);
-	var bodyWidth = (
-		'innerWidth' in window? window.innerWidth :
-	    document.compatMode!=='BackCompat'? document.documentElement.clientWidth :
-	    document.body.clientWidth	
-	);
+	var bodyHeight = this.canvas.offsetHeight;
+	var bodyWidth = this.canvas.offsetWidth;
 	var objStyle = obj.style;
     objStyle.position = 'absolute';
     objStyle.width = width;
     objStyle.minHeight = height;
-    objStyle.top = ((bodyHeight/2)-(parseInt(obj.offsetHeight, 10)/2))+'px';
+    objStyle.top = (((bodyHeight/2)-(parseInt(obj.offsetHeight, 10)/2))-100)+'px';
     objStyle.left = ((bodyWidth/2)-(parseInt(width, 10)/2))+'px';
 }
 popupManager.prototype.create = function( params ){
     if( params.overlay != void 0 && params.overlay ){
     	if(document.getElementById('pop-overlay') == void 0 ){
-    		this.overlay = objectM.create('DIV',{'id':'pop-overlay'},'', this.body );
-    		if(params.type == void 0 || params.type == 'basic'){
-    			eventM.add( this.overlay, layoutM.click, popupM.close, null, popupM );
-    		}
+    		this.overlay = objectM.create('DIV',{'id':'pop-overlay'},'', this.canvas );
     	} else {
     		this.overlay.style.width = '100%';
     		this.overlay.style.height = '100%';
@@ -58,9 +47,8 @@ popupManager.prototype.create = function( params ){
 		break;
 		case 'basic':
 		default:
-			this.close = objectM.create('SPAN',{'id':'pop-close'},'', this.popupWindow );
+			this.close = objectM.create('SPAN',{'id':'pop-close','onclick':'popupM.closeButton()'},'', this.popupWindow );
 				objectM.appendText(params.closeText, this.close);
-			eventM.add( this.close, layoutM.click, popupM.closeButton, this.bodyContainer, popupM );
 		break;
 	}
 	this.setPosition( this.popupWindow, params.height, params.width );
@@ -77,8 +65,6 @@ popupManager.prototype.closeButton = function( obj ){
 		this.overlay.style.width = '0%';
 		this.overlay.style.height = '0%';
 	}
-	var id = this.close.getAttribute('event');
-	eventM.remove( id );
 	objectM.remove( this.popupWindow );
 }
 popupManager.prototype.close = function( e ){
