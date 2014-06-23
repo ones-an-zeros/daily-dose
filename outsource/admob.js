@@ -2,14 +2,12 @@ var admob_ios_key = '';
 var admob_android_key = 'ca-app-pub-5231668809835913/8363255780';
 var adId = (navigator.userAgent.indexOf('Android') >=0) ? admob_android_key : admob_ios_key;
 function onLoad() {
-	if(layoutM.isMobile==true){
-		document.addEventListener("deviceready", onDeviceReady, false);
-		document.addEventListener('onReceiveAd', function(){});
-		document.addEventListener('onFailedToReceiveAd', function(data){});
-		document.addEventListener('onPresentAd', function(){});
-		document.addEventListener('onDismissAd', function(){});
-		document.addEventListener('onLeaveToAd', function(){});
-	}
+	document.addEventListener("deviceready", onDeviceReady, false);
+	document.addEventListener('onReceiveAd', function(){});
+	document.addEventListener('onFailedToReceiveAd', function(data){});
+	document.addEventListener('onPresentAd', function(){});
+	document.addEventListener('onDismissAd', function(){});
+	document.addEventListener('onLeaveToAd', function(){});
 }
 function createAd() {
 	if ( window.plugins && window.plugins.AdMob ) {
@@ -72,24 +70,21 @@ function onResize() {
     var msg = 'web view: ' + window.innerWidth + ' x ' + window.innerHeight;
     document.getElementById('sizeinfo').innerHTML = msg;
 }
-/*
-if(layoutM.isMobile==true){
-	document.body.addEventListener('touchmove',function(e){
-	    e = e || window.event;
-	    var target = e.target || e.srcElement;
-	    //in case $altNav is a class:
-	    if (!target.className.match(/\baltNav\b/))
-	    {
-	        e.returnValue = false;
-	        e.cancelBubble = true;
-	        if (e.preventDefault)
-	        {
-	            e.preventDefault();
-	            e.stopPropagation();
-	        }
-	        return false;//or return e, doesn't matter
-	    }
-	    //target is a reference to an $altNav element here, e is the event object, go mad
-	},false);
-}
-*/
+
+document.body.addEventListener('touchmove',function(e){
+    e = e || window.event;
+    var target = e.target || e.srcElement;
+    //in case $altNav is a class:
+    if (!target.className.match(/\baltNav\b/))
+    {
+        e.returnValue = false;
+        e.cancelBubble = true;
+        if (e.preventDefault)
+        {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+        return false;//or return e, doesn't matter
+    }
+    //target is a reference to an $altNav element here, e is the event object, go mad
+},false);

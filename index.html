@@ -20,22 +20,16 @@
   	</head>
   	<body onload="onLoad()" onresize="onResize()">
 		<script type="text/javascript">
-			eventM 		= new eventManager();
-			requestM	= new requestManager();
-			objectM 	= new objectManager();
-			layoutM 	= new layoutManager(1080,1920);
-			popupM 		= new popupManager();
-			architect 	= new architect();
-			if(layoutM.isMobile==true){
-				document.addEventListener("deviceready", function(){
-					architect.init();
-					document.addEventListener("backbutton", function(){
-						navigator.apprate.promptForRating();
-					}, false);
-				}, false);
-			} else {
+			document.addEventListener("deviceready", function(){
+				eventM 		= new eventManager();
+				requestM	= new requestManager();
+				objectM 	= new objectManager();
+				layoutM 	= new layoutManager(1080,1920);
+				popupM 		= new popupManager();
+				architect 	= new architect();
 				architect.init();
-			}
+			}, false);
+			
 		</script>
  	</body>
 </html>
