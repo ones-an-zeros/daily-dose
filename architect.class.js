@@ -37,7 +37,18 @@ architect.prototype.buildHeader = function(){
 	objectM.appendText('Daily Dose', h1);
 	this.header = header;
 }
+
 architect.prototype.openNavigationMenu = function(){
+	var objref = this;
+	var infoMenu = new contextMenuManager();
+	infoMenu.setTitle('Info');
+	infoMenu.add('About', function(){infoMenu.close();});
+	infoMenu.add('Exit', function(){infoMenu.close();});
+	infoMenu.show();
+}
+
+
+architect.prototype.aboutPopup = function(){
 	var content = "<br /><span>Myself ( Corey Rosamond ) And Nicole Pham developed and designed daily dose after I left a company called ABCMouse.com. It was a very stressfull job for me one that I wanted very much";
 	content += " to do the best I could at, to impress my superiors. Nicole saw how much stress I was under and started putting these little post-it notes in my lunches. The first time I found one was after a very ";
 	content += "stressfull meeting, my reaction was amazing it made my whole day just a little better and needless to say made my worries a bit easyer to deal with. Now I foolishly did not mention this soon ";
