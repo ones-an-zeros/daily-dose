@@ -16,6 +16,8 @@ layoutManager.prototype.drawStage = function(){
 	} else {	
 		var scale = '-ms-transform: scale(.4,.4);-webkit-transform: scale(.4,.4);transform: scale(.4,.4);';
 	}
+	this.scale = scale;
+	//scale = '';
 	this.viewport = objectM.create('DIV',{'id':'viewport'},'width:'+this.width+'px;height:'+this.height+'px;'+scale,this.body);
 }
 layoutManager.prototype.isMobile = function() { 

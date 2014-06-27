@@ -29,8 +29,8 @@
 
 #menu-content{
 	padding:0px 20px 10px 20px;
-	font-size:14px;
-	line-height:18px;
+	font-size:26px;
+	line-height:30px;
 	margin-top:10px;
 }
 #menu-content p{
@@ -49,3 +49,5 @@
 #menu-button:hover{
 	background: #A5A5A5;
 }
+
+

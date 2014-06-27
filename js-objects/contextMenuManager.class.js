@@ -2,21 +2,25 @@ function contextMenuManager(){
 	this.stack = [];
     this.menu = new Object();
 	this.items = [];
-    this.canvas = document.getElementById('viewport');
+    //this.canvas = document.getElementById('viewport');
+	this.canvas = layoutM.viewport;
     this.body = document.getElementsByTagName('body')[0];
-    this.width = '150px';
-    this.height = '50px';
-    this.rowHeight = 25;
+    this.width = '350px';
+    this.height = '400px';
+    this.rowHeight = 45;
 }
 
 contextMenuManager.prototype.setPosition = function(obj,height,width){
 	var bodyHeight = this.canvas.offsetHeight;
 	var bodyWidth = this.canvas.offsetWidth;
+	if(bodyHeight == 0) bodyHeight = window.innerHeight;
+	console.log('height ' +bodyHeight);
+	console.log('window.innerHeight ' +window.innerHeight);
 	var objStyle = obj.style;
     objStyle.position = 'absolute';
     objStyle.width = width;
     objStyle.minHeight = height;
-    objStyle.top = ((bodyHeight-parseInt(obj.offsetHeight, 10))/2)+'px';
+	objStyle.top = ((bodyHeight-parseInt(obj.offsetHeight, 10))/2)+'px';
     objStyle.left = ((bodyWidth/2)-(parseInt(width, 10)/2))+'px';
 }
 
@@ -49,22 +53,22 @@ contextMenuManager.prototype.show = function(){
 	    	objectM.appendText(this.title, this.menuTitle);
 	}
 	this.menuContent = objectM.create('DIV',{'id':'menu-content'},'', this.menuWindow );
-	console.log(this.items.length);
 	for ( var i=0; i<this.items.length; i++ ){
 	 		this.buildRow(i, this.items[i], this.menuContent );
 	}
 	
 	this.setPosition( this.menuWindow, this.height, this.width );
-	console.log('width: '+this.menuWindow.style.width);
-	console.log('top: '+this.menuWindow.style.top);
+	this.menuWindow.style.top = '50px';
+	document.addEventListener('touchmove',function(e){ e.preventDefault(); });
 }
 
 contextMenuManager.prototype.buildRow = function(index, data, parent){
 	var objref = this;
 	var row = objectM.create('DIV',{'id':'menu-row-'+index, 'class':'menu-row', 'data':index},'width:100%; height:'+this.rowHeight+'px;',parent);
 	var buttonDiv = objectM.create('DIV', {'id':'menu-button'}, '', row );
-			objectM.appendText(data[0],buttonDiv);		
-	row.addEventListener('click',function(e){ objref.menuItemClicked(e, index); });
+		objectM.appendText(data[0],buttonDiv);
+	
+	buttonDiv.addEventListener('touchend',function(e){ console.log('button'+index);objref.menuItemClicked(e, index); });
 }
 
 
