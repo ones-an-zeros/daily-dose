@@ -13,6 +13,8 @@ function architect(){
 	this.currentDate = year+'-'+month+'-'+day;
 }
 architect.prototype.init = function(){
+console.log("DAG");
+	this.fbLogin();
 	requestM.ajaxGet('http://54.193.105.189/app-responder/daily-dose.inc.php', {'action':'get-quote','date':this.currentDate}, this.addQuote, false);
 	this.buildHeader();
 	this.buildQuoteBox();
@@ -20,14 +22,44 @@ architect.prototype.init = function(){
 		now.setHours(9);
 		now.setMinutes(0);
 		now.setSeconds(0);
-	window.plugin.notification.local.add({
+	/*window.plugin.notification.local.add({
 	    id:      1,
 	    title:   'Reminder',
 	    message: 'Dont forget to get your Daily Dose of inspiration!',
 	    repeat:  'daily',
 	    date:    now
-	});
+	});*/
 }
+
+architect.prototype.fbLogin = function(){
+console.log("fbLogin");
+		var fbLoginSuccess = function (userData) {
+							console.log("userData: "+userData);
+							alert("UserInfo: " + JSON.stringify(userData));
+							
+							facebookConnectPlugin.getLoginStatus(
+								function (status) {
+									alert("current status: " + JSON.stringify(status));
+								}
+							);
+						}
+
+		/*var fbLoginSuccess = facebookConnectPlugin.api("me/?fields=id,email", ["user_birthday"],
+			function (result) {
+				alert("Result: " + JSON.stringify(result));
+            },
+			function (error) {
+				alert("Failed: " + error);
+		});*/
+						
+		facebookConnectPlugin.login(["basic_info"],
+			fbLoginSuccess,
+			function (error) { console.log("error login: "+error); alert("login" + error) }
+		);
+}
+					
+					
+
 architect.prototype.buildHeader = function(){
 	var viewport = this.viewport;
 	var navButton = objectM.create('DIV',{'id':'nav-button','onclick':'architect.openNavigationMenu();'},'',viewport);
@@ -45,6 +77,7 @@ architect.prototype.openNavigationMenu = function(){
 	infoMenu.add('About', function(){infoMenu.close();});
 	infoMenu.add('Exit', function(){infoMenu.close();});
 	infoMenu.show();
+	//this.aboutPopup();
 }
 
 
