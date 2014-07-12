@@ -5,6 +5,7 @@
 		<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, target-densityDpi=device-dpi" />
 		<meta content="IE=edge" http-equiv="X-UA-Compatible">
 	    <title>Daily Dose</title>
+	    <script type="text/javascript">development = true; </script>
 	    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 	    <script type="text/javascript" src="cordova.js"></script>
 	  	<link href='http://fonts.googleapis.com/css?family=Cinzel+Decorative' rel='stylesheet' type='text/css'>
@@ -22,15 +23,27 @@
   	</head>
   	<body onload="onLoad()" onresize="onResize()">
 		<script type="text/javascript">
-			document.addEventListener("deviceready", function(){
+			if(development == false){
+				document.addEventListener("deviceready", function(){
+					eventM 		= new eventManager();
+					requestM	= new requestManager();
+					objectM 	= new objectManager();
+					layoutM 	= new layoutManager(1080,1920);
+					contextM  	= new contextMenuManager();
+					popupM 		= new popupManager();
+					architect 	= new architect();
+					architect.init();
+				}, false);
+			} else {
 				eventM 		= new eventManager();
 				requestM	= new requestManager();
 				objectM 	= new objectManager();
 				layoutM 	= new layoutManager(1080,1920);
+				contextM  	= new contextMenuManager();
 				popupM 		= new popupManager();
 				architect 	= new architect();
 				architect.init();
-			}, false);
+			}
 			
 		</script>
  	</body>

@@ -1,3 +1,4 @@
+if(development == false ){
 var admob_ios_key = '';
 var admob_android_key = 'ca-app-pub-5231668809835913/8363255780';
 var adId = (navigator.userAgent.indexOf('Android') >=0) ? admob_android_key : admob_ios_key;
@@ -88,3 +89,4 @@ document.body.addEventListener('touchmove',function(e){
     }
     //target is a reference to an $altNav element here, e is the event object, go mad
 },false);
+}
