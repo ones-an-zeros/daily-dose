@@ -13,7 +13,6 @@ function architect(){
 	this.currentDate = year+'-'+month+'-'+day;
 }
 architect.prototype.init = function(){
-	requestM.ajaxGet('http://54.193.105.189/app-responder/daily-dose.inc.php', {'action':'get-quote','date':this.currentDate}, this.addQuote, false);
 	this.buildHeader();
 	this.buildQuoteBox();
 	var now = new Date()
@@ -28,6 +27,10 @@ architect.prototype.init = function(){
 		    repeat:  'daily',
 		    date:    now
 		});
+		this.checkConnection();
+		this.openDB();
+	}else{
+		requestM.ajaxGet('http://54.193.105.189/app-responder/daily-dose.inc.php', {'action':'get-quote','date':this.currentDate}, this.displayQuote, false);
 	}
 }
 architect.prototype.setOrientation = function(){
@@ -88,11 +91,11 @@ architect.prototype.buildQuoteBox = function(){
 	var quoteBg = objectM.create('DIV',{'id':'quote-bg','class':'quote-bg','ontouchstart':'architect.queueMove(event);'},'',viewport);
 	var quote = objectM.create('DIV',{'id':'quote','class':'quote'},'',quoteBg);
 	this.quoteDate = objectM.create('DIV',{'id':'quote-date','class':'quote-date quicksand-book-regular'},'',quote);
-		objectM.appendText(this.formatDate(this.currentDate), this.quoteDate);
+		//objectM.appendText(this.formatDate(this.currentDate), this.quoteDate);
 	this.quoteText = objectM.create('DIV',{'id':'quote-text','class':'quote-text quicksand-book-regular'},'',quote);
-		objectM.appendText('"'+this.quotes[this.currentDate]['quote']+'"', this.quoteText);
+		//objectM.appendText('"'+this.quotes[this.currentDate]['quote']+'"', this.quoteText);
 	this.quoteAuthor = objectM.create('DIV',{'id':'quote-author', 'class':'quote-author quicksand-book-regular'},'',quote);
-		objectM.appendText('- '+this.quotes[this.currentDate]['author'], this.quoteAuthor);
+		//objectM.appendText('- '+this.quotes[this.currentDate]['author'], this.quoteAuthor);
 	var navigation = objectM.create('DIV',{'id':'navigation','class':'navigation'},'',viewport);
 	var previous = objectM.create('BUTTON',{'id':'previous','class':'previous quicksand-book-regular','onclick':'architect.changeQuote(\'PREV\');'},'',navigation);
 		objectM.appendText('Previous',previous);
@@ -137,6 +140,7 @@ architect.prototype.removeMove = function(evt){
 	architect.currentPosition = null;
 }
 architect.prototype.addQuote = function( data ){
+	var sourceData = data;
 	data = JSON.parse(data);
 	var dParts = data.date.split(" "); 
 	var baseDate = dParts[0];
@@ -144,6 +148,89 @@ architect.prototype.addQuote = function( data ){
 	architect.quotes[baseDate]['author'] = data['author'];
 	architect.quotes[baseDate]['quote'] = data['quote'];
 }
+
+architect.prototype.checkQuote = function(date){
+if(date == void 0) date = architect.currentDate;
+	if(date == architect.currentDate){
+		this.db.transaction(function(tx) {
+			tx.executeSql("SELECT * FROM post ORDER BY quote_date DESC LIMIT 1;",[],
+				function(tx,result){
+					var arrayResults = [];
+					var len = result.rows.length;
+					if(len > 0){
+						if(architect.stripTime(result.rows.item(0).quote_date) == date){
+							var data = new Object();
+								data.date = result.rows.item(0).quote_date;
+								data.author = result.rows.item(0).quote_author;
+								data.quote = result.rows.item(0).quote;
+								architect.displayQuote(JSON.stringify(data));
+						}else{
+							architect.getQuote(date);
+						}
+					}else{
+						architect.getQuote(date);
+					}
+				},this.errorCB);
+		},this.errorCB);
+	}else{
+		this.db.transaction(function(tx) {
+			tx.executeSql("SELECT * FROM post WHERE quote_date like '"+ date +"%' LIMIT 1;",[],
+				function(tx,result){
+					var arrayResults = [];
+					var len = result.rows.length;
+					if(len > 0){
+						if(architect.stripTime(result.rows.item(0).quote_date) == date){
+							var data = new Object();
+							data.date = result.rows.item(0).quote_date;
+							data.author = result.rows.item(0).quote_author;
+							data.quote = result.rows.item(0).quote;
+							architect.displayQuote(JSON.stringify(data));
+						}else{
+							architect.getQuote(date);
+						}
+					}else{
+						architect.getQuote(date);
+					}
+				},this.errorCB);
+		},this.errorCB);
+	}
+}
+
+architect.prototype.getQuote = function(date){
+	if(this.hasInternet){
+		architect.storeQuote = true;
+		requestM.ajaxGet('http://54.193.105.189/app-responder/daily-dose.inc.php', {'action':'get-quote','date':date}, architect.displayQuote, false);
+	}else{
+		var data = new Object();
+		data.date = date;
+		data.author = 'Daily Dose';
+		data.quote = 'Device currently has no internet. You can look at previously viewed quotes but to view current quotes please verify your device has internet and then restart the app.';
+		architect.displayQuote(JSON.stringify(data));
+	}
+}
+
+architect.prototype.addQuoteToDB = function(author, quote, date){
+	this.db.transaction(function(tx) {
+		tx.executeSql("INSERT INTO post ('quote_date', 'quote_author', 'quote') VALUES (?, ?, ?);", [date, author,quote]);
+	},this.errorCB);
+}
+
+architect.prototype.openDB = function(){
+	this.db = window.sqlitePlugin.openDatabase({  
+				name : "dailydose"  
+			});
+	this.db.transaction(this.createDB, this.errorCB);
+}
+
+architect.prototype.createDB = function(tx) {
+    tx.executeSql("CREATE TABLE IF NOT EXISTS 'post' ('quote_key' integer not null primary key autoincrement, 'quote_date' text not null default current_timestamp, 'quote_author' text not null, 'quote' text not null);");
+	architect.checkQuote();
+}
+
+architect.prototype.errorCB = function(err) {
+	console.log("Error processing SQL: "+err.message +' code: ' + err.code);
+}
+
 architect.prototype.changeQuote = function( opt ){
 	var dateObj = new Date(this.displayedQuote);
 	if(opt=='PREV'){ var math = '-1'; 
@@ -162,25 +249,56 @@ architect.prototype.changeQuote = function( opt ){
 	    if (day.length == 1){ day = "0" + day; }
 		var date = year+'-'+month+'-'+day;
 		this.displayedQuote = date;
-		requestM.ajaxGet('http://54.193.105.189/app-responder/daily-dose.inc.php', {'action':'get-quote','date':this.displayedQuote}, this.displayQuote, false);
+		if(development == false ){
+			this.checkQuote(this.displayedQuote);
+		}else{
+			requestM.ajaxGet('http://54.193.105.189/app-responder/daily-dose.inc.php', {'action':'get-quote','date':this.displayedQuote}, this.displayQuote, false);
+		}
 	}
 }
 architect.prototype.parseDate = function(str){
     var s = str.split(" "),
         d = str[0].split("-"),
         t = str[1].replace(/:/g, "");
-        alert(d[2])
+        alert(d[2]);
     return d[2] + d[1] + d[0] + t;
 }
+
+architect.prototype.stripTime = function(str){
+    var s = str.split(" "),
+        d = s[0].split("-");
+    return s[0];
+}
+
 architect.prototype.formatDate = function(date){
-	var date = new Date( date );
-	var options = {
-	    weekday: "long", year: "numeric", month: "short",
-	    day: "numeric", hour: "2-digit", minute: "2-digit"
-	};
-	var dateString = date.toLocaleTimeString("en-us", options);
-	var dateArray = dateString.split(' ');
-	return dateArray[0]+' '+dateArray[1]+' '+dateArray[2]+' '+dateArray[3].replace(',','');
+ var weekday = new Array(7);
+  weekday[0]=  "Sunday";
+  weekday[1] = "Monday";
+  weekday[2] = "Tuesday";
+  weekday[3] = "Wednesday";
+  weekday[4] = "Thursday";
+  weekday[5] = "Friday";
+  weekday[6] = "Saturday";
+ var month = new Array();
+  month[0] = "January";
+  month[1] = "February";
+  month[2] = "March";
+  month[3] = "April";
+  month[4] = "May";
+  month[5] = "June";
+  month[6] = "July";
+  month[7] = "August";
+  month[8] = "September";
+  month[9] = "October";
+  month[10] = "November";
+  month[11] = "December";
+ var date = new Date( date );
+ var dayofweek =  date.getDay();
+ var monthofyear = date.getMonth();  
+ var dayofmonth = date.getDate()
+ var year = date.getFullYear()
+ var returnDate = weekday[dayofweek]+', '+month[monthofyear]+', '+dayofmonth+', '+year;
+ return returnDate;
 }
 architect.prototype.displayQuote = function( data ){
 	data = JSON.parse(data);
@@ -192,5 +310,27 @@ architect.prototype.displayQuote = function( data ){
 	architect.quoteText.innerHTML = '"'+data['quote']+'"';
 	architect.quoteDate.innerHTML = architect.formatDate(baseDate);
 	architect.quoteAuthor.innerHTML = "- "+data['author'];
+	if(architect.storeQuote == true){
+		architect.storeQuote = false;
+		architect.addQuoteToDB(data['author'],data['quote'],data['date']);
+	}
 	Cufon.refresh();
+}
+
+architect.prototype.checkConnection = function() {
+    var networkState = navigator.connection.type;
+    var states = {};
+    states[Connection.UNKNOWN]  = 'Unknown connection';
+    states[Connection.ETHERNET] = 'Ethernet connection';
+    states[Connection.WIFI]     = 'WiFi connection';
+    states[Connection.CELL_2G]  = 'Cell 2G connection';
+    states[Connection.CELL_3G]  = 'Cell 3G connection';
+    states[Connection.CELL_4G]  = 'Cell 4G connection';
+    states[Connection.CELL]     = 'Cell generic connection';
+    states[Connection.NONE]     = 'No network connection';
+	if(states[networkState] == 'No network connection'){
+		this.hasInternet = false;
+	}else{
+		this.hasInternet = true;
+	}
 }
