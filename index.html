@@ -62,8 +62,9 @@
 				Cufon.refresh();
 			}
 			window.addEventListener("resize", function() {
-			  	architect.changeOrientation();	
-			  
+				setTimeout(function(){
+					architect.changeOrientation();	
+			  	},250);
 			}, false);
 		</script>
  	</body>
