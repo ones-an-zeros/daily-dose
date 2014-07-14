@@ -1,0 +1,110 @@
+/* web */
+.vp-web .quote-bg{
+	height:450px;
+	width:100%;
+	background:green;
+	margin:500px 0px 0px 0px;
+	background: rgba(0, 0, 0, 0.6);
+	transition: opacity .25s ease-in-out;
+	-moz-transition: opacity .25s ease-in-out;
+	-webkit-transition: opacity .25s ease-in-out;
+}
+.vp-web .quote-bg .quote{
+	width:1000px;
+	height:350px;
+	margin:0px auto 0px auto;
+	color:white;
+}
+
+.vp-web .quote-bg .quote .quote-date{
+	font-size:30px;
+	line-height:70px;
+	margin:0px 0px 0px 0px;
+	color:white;
+}
+.vp-web .quote-bg .quote .quote-text{
+	font-size:40px;
+	line-height:50px;
+	color:white;
+}
+.vp-web .quote-bg .quote .quote-author{
+	font-size:30px;
+	line-height:30px;
+	margin:00px 0px 0px 0px;
+	text-align:right;
+	color:white;
+}
+/* vertical */
+.vp-verticle .quote-bg{
+	height:450px;
+	width:100%;
+	background:green;
+	margin:300px 0px 0px 0px;
+	background: rgba(0, 0, 0, 0.6);
+	transition: opacity .25s ease-in-out;
+	-moz-transition: opacity .25s ease-in-out;
+	-webkit-transition: opacity .25s ease-in-out;
+}
+.vp-verticle .quote-bg .quote{
+	width:1000px;
+	height:350px;
+	margin:0px auto 0px auto;
+	color:white;
+}
+
+.vp-verticle .quote-bg .quote .quote-date{
+	font-size:30px;
+	line-height:70px;
+	margin:0px 0px 0px 0px;
+	color:white;
+}
+.vp-verticle .quote-bg .quote .quote-text{
+	font-size:40px;
+	line-height:50px;
+	color:white;
+}
+.vp-verticle .quote-bg .quote .quote-author{
+	font-size:30px;
+	line-height:30px;
+	margin:00px 0px 0px 0px;
+	text-align:right;
+	color:white;
+}
+
+
+/* Horizontal */
+.vp-horizontal .quote-bg{
+	height:350px;
+	width:100%;
+	background:green;
+	margin:130px 0px 0px 0px;
+	background: rgba(0, 0, 0, 0.6);
+	transition: opacity .25s ease-in-out;
+	-moz-transition: opacity .25s ease-in-out;
+	-webkit-transition: opacity .25s ease-in-out;
+}
+.vp-horizontal .quote-bg .quote{
+	width:1000px;
+	height:350px;
+	margin:0px auto 0px auto;
+	color:white;
+}
+
+.vp-horizontal .quote-bg .quote .quote-date{
+	font-size:30px;
+	line-height:70px;
+	margin:0px 0px 0px 0px;
+	color:white;
+}
+.vp-horizontal .quote-bg .quote .quote-text{
+	font-size:40px;
+	line-height:50px;
+	color:white;
+}
+.vp-horizontal .quote-bg .quote .quote-author{
+	font-size:30px;
+	line-height:30px;
+	margin:00px 0px 0px 0px;
+	text-align:right;
+	color:white;
+}

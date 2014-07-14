@@ -1,25 +1,57 @@
 function layoutManager( width, height ){
     this.body = document.getElementsByTagName('body')[0];
-    this.width = width;
-    this.height = height;
+    this.viewport = null;
+    this.vWidth = width;
+    this.vHeight = height;
+    this.hWidth = height;
+    this.hHeight = width;
+    this.heightVertical = false;
+    this.heightHorizontal = false;
+    this.height = null;
+    this.width = null;
     this.getSize();
     this.drawStage();
 }
-
 layoutManager.prototype.drawStage = function(){
-	var scaleWidth = (this.windowWidth/this.width);
-	var scale = '-ms-transform: scale('+scaleWidth+');-webkit-transform: scale('+scaleWidth+');transform: scale('+scaleWidth+');';
-	if(this.isMobile()){
-		var scaleWidth = (this.windowWidth/this.width);
-		var scaleHeight = (this.windowHeight/this.height);
-		var scale = '-ms-transform: scale('+scaleWidth+','+scaleHeight+');-webkit-transform: scale('+scaleWidth+','+scaleHeight+');transform: scale('+scaleWidth+','+scaleHeight+');';
-	} else {	
-		var scale = '-ms-transform: scale(.4,.4);-webkit-transform: scale(.4,.4);transform: scale(.4,.4);';
+	if(window.orientation=='0'|| window.orientation == '180'){
+		var className = 'vp-verticle';
+		var height = this.vHeight;
+		var width = this.vWidth;
+		if(this.windowWidthV==null){ this.getSize(); }
+		var windowHeight = this.windowHeightV;
+		var windowWidth = this.windowWidthV;
+	} else if(window.orientation == '90' || window.orientation == '-90'){
+		var className = 'vp-horizontal';
+		var height = this.hHeight;
+		var width = this.hWidth;
+		if(this.windowWidthH==null){ this.getSize(); }
+		var windowHeight = this.windowHeightH;
+		var windowWidth = this.windowWidthH;
+	} else {
+		var height = this.vHeight;
+		var width = this.vWidth;
+		var className = 'vp-web';
+		var windowHeight = this.windowHeightV;
+		var windowWidth = this.windowWidthV;
 	}
-	this.scale = scale;
-	//scale = '';
-	this.viewport = objectM.create('DIV',{'id':'viewport'},'width:'+this.width+'px;height:'+this.height+'px;'+scale,this.body);
+	// if we are mobile find our scale
+	if(this.isMobile()){ var scaleWidth = (windowWidth/width);
+	} else { var scaleWidth = '.4'; }
+	// Make the viewport if it doesent exist
+	if(this.viewport == null){ this.viewport = objectM.create('DIV',{},'',this.body);  }
+	
+	// Set all the transforms
+	var viewport = this.viewport
+	viewport.className = className;
+	viewport.style.height = height+'px';
+	viewport.style.width = width+'px';
+	viewport.style.webkitTransform = "scale("+scaleWidth+")";
+	viewport.style.MozTransform = "scale("+scaleWidth+")";
+	viewport.style.msTransform = "scale("+scaleWidth+")";
+	viewport.style.OTransform = "scale("+scaleWidth+")";
+	viewport.style.transform = "scale("+scaleWidth+")";
 }
+
 layoutManager.prototype.isMobile = function() { 
 	if( navigator.userAgent.match(/Android/i)
 		|| navigator.userAgent.match(/webOS/i)
@@ -33,20 +65,30 @@ layoutManager.prototype.isMobile = function() {
 // Get the size of the stage
 layoutManager.prototype.getSize = function(){
     var winW = 630, winH = 460;
-    if (document.body && document.body.offsetWidth) {
-		winW = document.body.offsetWidth;
-		winH = document.body.offsetHeight;
+    if(this.isMobile){
+	    winW = screen.width;
+	    winH = screen.height;
+	} else { 
+	    if (document.body && document.body.offsetWidth) {
+			winW = document.body.offsetWidth;
+			winH = document.body.offsetHeight;
+	    }
+	    if (document.compatMode=='CSS1Compat' &&
+			document.documentElement &&
+			document.documentElement.offsetWidth ) {
+			winW = document.documentElement.offsetWidth;
+			winH = document.documentElement.offsetHeight;
+	    }
+	    if (window.innerWidth && window.innerHeight) {
+			winW = window.innerWidth;
+			winH = window.innerHeight;
+	    }
+   	}
+    if(window.orientation=='0'|| window.orientation == '180'){
+	    this.windowHeightV = winH;
+	    this.windowWidthV = winW;
+    } else if(window.orientation == '90' || window.orientation == '-90'){
+	    this.windowHeightH = winH;
+	    this.windowWidthH = winW;
     }
-    if (document.compatMode=='CSS1Compat' &&
-		document.documentElement &&
-		document.documentElement.offsetWidth ) {
-		winW = document.documentElement.offsetWidth;
-		winH = document.documentElement.offsetHeight;
-    }
-    if (window.innerWidth && window.innerHeight) {
-		winW = window.innerWidth;
-		winH = window.innerHeight;
-    }
-    this.windowHeight = winH;
-    this.windowWidth = winW;
 }
