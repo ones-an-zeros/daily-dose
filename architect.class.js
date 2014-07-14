@@ -30,13 +30,20 @@ architect.prototype.init = function(){
 		});
 	}
 }
+architect.prototype.setOrientation = function(){
+	
+}
+architect.prototype.changeOrientation = function(){
+	layoutM.drawStage();
+}
 architect.prototype.buildHeader = function(){
 	var viewport = this.viewport;
-	var navButton = objectM.create('DIV',{'id':'nav-button','onclick':'architect.openNavigationMenu();'},'',viewport);
-		navButton.innerHTML = '<i class="fa fa-bars fa-5x"></i>'
-	var header = objectM.create('DIV',{'id':'header'},'',viewport);
-	var h1 = objectM.create('H1',{},'',header);
-	objectM.appendText('Daily Dose', h1);
+	var header = objectM.create('DIV',{'class':'header'},'',viewport);
+	var buttonContainer = objectM.create('DIV',{'class':'button-container'},'',header);
+	var navButton = objectM.create('DIV',{'class':'navigation-button quicksand-book-regular','onclick':'architect.openNavigationMenu();'},'',buttonContainer);
+		objectM.appendText('Menu',navButton);
+	var h1 = objectM.create('H1',{'class':'quicksand-book-oblique-regular'},'',header);
+		h1.innerHTML = '<img src="images/logo.png" />Daily Dose';
 	this.header = header;
 }
 
@@ -78,42 +85,35 @@ architect.prototype.aboutPopup = function(){
 architect.prototype.buildQuoteBox = function(){
 	var viewport = this.viewport;
 	this.displayedQuote = this.currentDate;
-	var quoteBg = objectM.create('DIV',{'id':'quote-bg','onmousedown':'architect.queueMove(event);'},'',viewport);
-	var quote = objectM.create('DIV',{'id':'quote'},'',quoteBg);
-	this.quoteDate = objectM.create('DIV',{'id':'quote-date'},'',quote);
+	var quoteBg = objectM.create('DIV',{'id':'quote-bg','class':'quote-bg','ontouchstart':'architect.queueMove(event);'},'',viewport);
+	var quote = objectM.create('DIV',{'id':'quote','class':'quote'},'',quoteBg);
+	this.quoteDate = objectM.create('DIV',{'id':'quote-date','class':'quote-date quicksand-book-regular'},'',quote);
 		objectM.appendText(this.formatDate(this.currentDate), this.quoteDate);
-	this.quoteText = objectM.create('DIV',{'id':'quote-text'},'',quote);
+	this.quoteText = objectM.create('DIV',{'id':'quote-text','class':'quote-text quicksand-book-regular'},'',quote);
 		objectM.appendText('"'+this.quotes[this.currentDate]['quote']+'"', this.quoteText);
-	this.quoteAuthor = objectM.create('DIV',{'id':'quote-author'},'',quote);
+	this.quoteAuthor = objectM.create('DIV',{'id':'quote-author', 'class':'quote-author quicksand-book-regular'},'',quote);
 		objectM.appendText('- '+this.quotes[this.currentDate]['author'], this.quoteAuthor);
-	var navigation = objectM.create('DIV',{'id':'navigation'},'',viewport);
-	var previous = objectM.create('BUTTON',{'id':'previous','onclick':'architect.changeQuote(\'PREV\');'},'',navigation);
-		objectM.appendText('<',previous);
-	var facebook = objectM.create('BUTTON',{'id':'facebook','onclick':'architect.shareFB();'},'',navigation);
+	var navigation = objectM.create('DIV',{'id':'navigation','class':'navigation'},'',viewport);
+	var previous = objectM.create('BUTTON',{'id':'previous','class':'previous quicksand-book-regular','onclick':'architect.changeQuote(\'PREV\');'},'',navigation);
+		objectM.appendText('Previous',previous);
+	var facebook = objectM.create('BUTTON',{'id':'facebook','class':'share quicksand-book-regular','onclick':'architect.shareFB();'},'',navigation);
 		objectM.appendText('Share',facebook);
-	var next = objectM.create('BUTTON',{'id':'previous','onclick':'architect.changeQuote(\'NEXT\');'},'',navigation);
-		objectM.appendText('>',next);
+	var next = objectM.create('BUTTON',{'id':'previous','class':'next quicksand-book-regular','onclick':'architect.changeQuote(\'NEXT\');'},'',navigation);
+		objectM.appendText('Next',next);
 }
 architect.prototype.mousePosition = function(evt){
-	var IE = document.all?true:false
-	if (IE) { 
-	    tempX = event.clientX + document.body.scrollLeft
-	    tempY = event.clientY + document.body.scrollTop
-    } else {  
-        tempX = evt.pageX
-        tempY = evt.pageY
-    }  
+	var touch = event.touches[0];
     var pos = new Object();
-    pos.x = tempX;
-    pos.y = tempY;
+    pos.x = touch.pageX;
+    pos.y = touch.pageY;
     return pos;
 }
 architect.prototype.queueMove = function(evt){
 	evt.preventDefault();
 	var pos = architect.mousePosition(evt);
 	architect.startPosition = pos;
-	document.addEventListener('mousemove', architect.mouseMove, false);
-	document.addEventListener('mouseup', architect.removeMove, false);
+	document.addEventListener('touchmove', architect.mouseMove, false);
+	document.addEventListener('touchend', architect.removeMove, false);
 }
 architect.prototype.mouseMove = function(evt){
 	evt.preventDefault();
@@ -123,14 +123,16 @@ architect.prototype.mouseMove = function(evt){
 architect.prototype.removeMove = function(evt){
 	var startPosition = architect.startPosition;
 	var curentPosition = architect.currentPosition;
-	var difference = Math.abs((curentPosition.y-startPosition.y));
-	if( curentPosition.y < startPosition.y ){
-		architect.changeQuote('PREV');
-	} else if( curentPosition.y > startPosition.y ) {
-		architect.changeQuote('NEXT');
+	var difference = Math.abs((curentPosition.x-startPosition.x));
+	if(difference>100){
+		if( curentPosition.x > startPosition.x ){
+			architect.changeQuote('PREV');
+		} else if( curentPosition.x < startPosition.x ) {
+			architect.changeQuote('NEXT'); 
+		}
 	}
-	document.removeEventListener('mousemove', architect.mouseMove, false)
-	document.removeEventListener('mouseup', architect.removeMove, false)
+	document.removeEventListener('touchmove', architect.mouseMove, false)
+	document.removeEventListener('touchend', architect.removeMove, false)
 	architect.startPosition = null;
 	architect.currentPosition = null;
 }
@@ -190,4 +192,5 @@ architect.prototype.displayQuote = function( data ){
 	architect.quoteText.innerHTML = '"'+data['quote']+'"';
 	architect.quoteDate.innerHTML = architect.formatDate(baseDate);
 	architect.quoteAuthor.innerHTML = "- "+data['author'];
+	Cufon.refresh();
 }
