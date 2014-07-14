@@ -13,11 +13,8 @@ function architect(){
 	this.currentDate = year+'-'+month+'-'+day;
 }
 architect.prototype.init = function(){
-	//requestM.ajaxGet('http://54.193.105.189/app-responder/daily-dose.inc.php', {'action':'get-quote','date':this.currentDate}, this.addQuote, false);
 	this.buildHeader();
 	this.buildQuoteBox();
-	this.checkConnection();
-	this.openDB();
 	var now = new Date()
 		now.setHours(9);
 		now.setMinutes(0);
@@ -30,6 +27,10 @@ architect.prototype.init = function(){
 		    repeat:  'daily',
 		    date:    now
 		});
+		this.checkConnection();
+		this.openDB();
+	}else{
+		requestM.ajaxGet('http://54.193.105.189/app-responder/daily-dose.inc.php', {'action':'get-quote','date':this.currentDate}, this.displayQuote, false);
 	}
 }
 architect.prototype.setOrientation = function(){
@@ -248,8 +249,11 @@ architect.prototype.changeQuote = function( opt ){
 	    if (day.length == 1){ day = "0" + day; }
 		var date = year+'-'+month+'-'+day;
 		this.displayedQuote = date;
-		this.checkQuote(this.displayedQuote);
-		//requestM.ajaxGet('http://54.193.105.189/app-responder/daily-dose.inc.php', {'action':'get-quote','date':this.displayedQuote}, this.displayQuote, false);
+		if(development == false ){
+			this.checkQuote(this.displayedQuote);
+		}else{
+			requestM.ajaxGet('http://54.193.105.189/app-responder/daily-dose.inc.php', {'action':'get-quote','date':this.displayedQuote}, this.displayQuote, false);
+		}
 	}
 }
 architect.prototype.parseDate = function(str){
