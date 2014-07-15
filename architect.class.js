@@ -104,6 +104,13 @@ architect.prototype.buildQuoteBox = function(){
 	var next = objectM.create('BUTTON',{'id':'previous','class':'next quicksand-book-regular','onclick':'architect.changeQuote(\'NEXT\');'},'',navigation);
 		objectM.appendText('Next',next);
 }
+architect.prototype.shareFB = function(){
+	var author = architect.quotes[architect.displayedQuote]['author'];
+	var quote = architect.quotes[architect.displayedQuote]['quote'];
+	window.plugins.socialsharing.share(
+		quote+' '+author+' - Shared Via Daily Dose http://www.dailydosenow.com'
+	);
+}
 architect.prototype.mousePosition = function(evt){
 	var touch = event.touches[0];
     var pos = new Object();
@@ -197,6 +204,7 @@ if(date == void 0) date = architect.currentDate;
 }
 
 architect.prototype.getQuote = function(date){
+	architect.checkConnection();
 	if(this.hasInternet){
 		architect.storeQuote = true;
 		requestM.ajaxGet('http://54.193.105.189/app-responder/daily-dose.inc.php', {'action':'get-quote','date':date}, architect.displayQuote, false);
@@ -260,7 +268,6 @@ architect.prototype.parseDate = function(str){
     var s = str.split(" "),
         d = str[0].split("-"),
         t = str[1].replace(/:/g, "");
-        alert(d[2]);
     return d[2] + d[1] + d[0] + t;
 }
 
@@ -271,34 +278,34 @@ architect.prototype.stripTime = function(str){
 }
 
 architect.prototype.formatDate = function(date){
- var weekday = new Array(7);
-  weekday[0]=  "Sunday";
-  weekday[1] = "Monday";
-  weekday[2] = "Tuesday";
-  weekday[3] = "Wednesday";
-  weekday[4] = "Thursday";
-  weekday[5] = "Friday";
-  weekday[6] = "Saturday";
- var month = new Array();
-  month[0] = "January";
-  month[1] = "February";
-  month[2] = "March";
-  month[3] = "April";
-  month[4] = "May";
-  month[5] = "June";
-  month[6] = "July";
-  month[7] = "August";
-  month[8] = "September";
-  month[9] = "October";
-  month[10] = "November";
-  month[11] = "December";
- var date = new Date( date );
- var dayofweek =  date.getDay();
- var monthofyear = date.getMonth();  
- var dayofmonth = date.getDate()
- var year = date.getFullYear()
- var returnDate = weekday[dayofweek]+', '+month[monthofyear]+', '+dayofmonth+', '+year;
- return returnDate;
+	var weekday = new Array(7);
+  		weekday[0]=  "Sunday";
+  		weekday[1] = "Monday";
+ 		weekday[2] = "Tuesday";
+  		weekday[3] = "Wednesday";
+  		weekday[4] = "Thursday";
+  		weekday[5] = "Friday";
+  		weekday[6] = "Saturday";
+ 	var month = new Array();
+  		month[0] = "January";
+  		month[1] = "February";
+  		month[2] = "March";
+  		month[3] = "April";
+  		month[4] = "May";
+  		month[5] = "June";
+  		month[6] = "July";
+  		month[7] = "August";
+  		month[8] = "September";
+  		month[9] = "October";
+  		month[10] = "November";
+  		month[11] = "December";
+ 	var date = new Date( date );
+ 	var dayofweek =  date.getDay();
+ 	var monthofyear = date.getMonth();  
+ 	var dayofmonth = date.getDate()
+ 	var year = date.getFullYear()
+ 	var returnDate = weekday[dayofweek]+', '+month[monthofyear]+', '+dayofmonth+', '+year;
+	return returnDate;
 }
 architect.prototype.displayQuote = function( data ){
 	data = JSON.parse(data);

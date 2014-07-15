@@ -5,7 +5,7 @@
 		<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, target-densityDpi=device-dpi" />
 		<meta content="IE=edge" http-equiv="X-UA-Compatible">
 	    <title>Daily Dose</title>
-	    <script type="text/javascript">development = true; </script>
+	    <script type="text/javascript">development = false; </script>
 	    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 	    <script type="text/javascript" src="cordova.js"></script>
 	  	<link href='http://fonts.googleapis.com/css?family=Cinzel+Decorative' rel='stylesheet' type='text/css'>
@@ -64,7 +64,7 @@
 			window.addEventListener("resize", function() {
 				setTimeout(function(){
 					architect.changeOrientation();	
-			  	},500);
+			  	},100);
 			}, false);
 		</script>
  	</body>
