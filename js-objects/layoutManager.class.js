@@ -31,6 +31,7 @@ layoutManager.prototype.drawStage = function(){
 		var height = this.vHeight;
 		var width = this.vWidth;
 		var className = 'vp-web';
+		//var className = 'vp-horizontal';
 		var windowHeight = this.windowHeightV;
 		var windowWidth = this.windowWidthV;
 	}

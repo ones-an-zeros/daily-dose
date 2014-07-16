@@ -122,7 +122,7 @@ contextMenuManager.prototype.buildRow = function(index, data, parent){
 			}
 			var buttonDiv = objectM.create('DIV', {'id':'menu-button'}, 'line-height:'+this.rowHeight+'px;'+position, row );
 				objectM.appendText(data[1],buttonDiv);
-				buttonDiv.addEventListener('click',function(e){ objref.menuItemClicked(e, index); });
+				//buttonDiv.addEventListener('click',function(e){ objref.menuItemClicked(e, index); });
 				buttonDiv.addEventListener('touchend',function(e){ objref.menuItemClicked(e, index); });
 			break;
 		case 'content':
