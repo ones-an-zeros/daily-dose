@@ -10,7 +10,9 @@
 	height:100%;
 	background-color: rgba(0,0,0,0.8);
 }
-#menu-window{
+/* web */
+
+.vp-web #menu-window{
 	position:absolute;
 	top:190px;
 	left:30px;
@@ -18,7 +20,7 @@
 	height:1500px;
 	background:white;
 }
-#menu-window h1{
+.vp-web #menu-window h1{
 	text-align: left;
 	padding:0px 0px 0px 20px;
 	margin: 0px;
@@ -32,17 +34,17 @@
 	display: inline-block;
 }
 
-#menu-content{
+.vp-web #menu-content{
 	padding:0px 20px 10px 20px;
 	font-size:26px;
 	line-height:30px;
 	margin-top:10px;
 }
-#menu-content p{
+.vp-web #menu-content p{
 	text-indent:25px;
 }
 
-#menu-button{
+.vp-web #menu-button{
 	background-color: #F4F4F4;
     border: 4px solid #E6E6E6;
     border-radius: 3px;
@@ -58,11 +60,11 @@
     height:80px;
 }
 
-#menu-button:hover{
+.vp-web #menu-button:hover{
 	background:#E6E6E6;
 }
 
-#menu-text{
+.vp-web #menu-text{
 	font-family: Arial,Tahoma,Verdana;
 	margin: 0px 0px 10px 0px;
 	padding: 10px 20px 10px 20px;
@@ -70,10 +72,10 @@
 	font-size: 36px;
 	line-height: 45px;
 }
-#menu-text h2{
+.vp-web #menu-text h2{
 	text-align:center;
 }
-#menu-text a{
+.vp-web #menu-text a{
 	font-family: Arial,Tahoma,Verdana;
 	margin: 0px auto;
 	padding: 0px;
@@ -81,8 +83,155 @@
 	line-height: 45px;
 	color:#333333;
 }
-.menu-row{
+.vp-web .menu-row{
 	margin-top:20px;
 }
+/* vertical */
+.vp-verticle #menu-window{
+	position:absolute;
+	top:190px;
+	left:30px;
+	width:1020px;
+	height:1500px;
+	background:white;
+}
+.vp-verticle #menu-window h1{
+	text-align: left;
+	padding:0px 0px 0px 20px;
+	margin: 0px;
+	width: 1000px;
+	height: 100px;
+	line-height: 110px;
+	font-size: 60px;
+	background: #E6E6E6;
+	color: #333333;
+	font-weight: normal;
+	display: inline-block;
+}
 
+.vp-verticle #menu-content{
+	padding:0px 20px 10px 20px;
+	font-size:26px;
+	line-height:30px;
+	margin-top:10px;
+}
+.vp-verticle #menu-content p{
+	text-indent:25px;
+}
 
+.vp-verticle #menu-button{
+	background-color: #F4F4F4;
+    border: 4px solid #E6E6E6;
+    border-radius: 3px;
+    color: #333333;
+    cursor: pointer;
+    font-family: Arial;
+    font-size: 45px !important;
+    margin-top: 25px;
+    padding: 5px;
+    text-align:center;
+    font-weight:bold;
+    width:962px; 
+    height:80px;
+}
+
+.vp-verticle #menu-button:hover{
+	background:#E6E6E6;
+}
+
+.vp-verticle #menu-text{
+	font-family: Arial,Tahoma,Verdana;
+	margin: 0px 0px 10px 0px;
+	padding: 10px 20px 10px 20px;
+	color: #333333;
+	font-size: 36px;
+	line-height: 45px;
+}
+.vp-verticle #menu-text h2{
+	text-align:center;
+}
+.vp-verticle #menu-text a{
+	font-family: Arial,Tahoma,Verdana;
+	margin: 0px auto;
+	padding: 0px;
+	font-size: 36px;
+	line-height: 45px;
+	color:#333333;
+}
+.vp-verticle .menu-row{
+	margin-top:20px;
+}
+/* horizontal */
+.vp-horizontal #menu-window{
+	position:absolute;
+	top:190px;
+	left:30px;
+	width:1860px;
+	height:1500px;
+	background:white;
+}
+.vp-horizontal #menu-window h1{
+	text-align: left;
+	padding:0px 0px 0px 20px;
+	margin: 0px;
+	width: 1840px;
+	line-height: 110px;
+	font-size: 60px;
+	background: #E6E6E6;
+	color: #333333;
+	font-weight: normal;
+	display: inline-block;
+}
+
+.vp-horizontal #menu-content{
+	padding:0px 20px 10px 20px;
+	font-size:26px;
+	line-height:30px;
+	margin-top:10px;
+}
+.vp-horizontal #menu-content p{
+	text-indent:25px;
+}
+
+.vp-horizontal #menu-button{
+	background-color: #F4F4F4;
+    border: 4px solid #E6E6E6;
+    border-radius: 3px;
+    color: #333333;
+    cursor: pointer;
+    font-family: Arial;
+    font-size: 45px !important;
+    margin-top: 25px;
+    padding: 5px;
+    text-align:center;
+    font-weight:bold;
+    width:1782px; 
+    height:80px;
+}
+
+.vp-horizontal #menu-button:hover{
+	background:#E6E6E6;
+}
+
+.vp-horizontal #menu-text{
+	font-family: Arial,Tahoma,Verdana;
+	margin: 0px 0px 10px 0px;
+	padding: 10px 20px 10px 20px;
+	color: #333333;
+	font-size: 36px;
+	line-height: 45px;
+}
+.vp-horizontal #menu-text h2{
+	text-align:center;
+}
+.vp-horizontal #menu-text a{
+	font-family: Arial,Tahoma,Verdana;
+	margin: 0px auto;
+	padding: 0px;
+	font-size: 36px;
+	line-height: 45px;
+	color:#333333;
+}
+.vp-horizontal .menu-row{
+	margin-top:20px;
+}
