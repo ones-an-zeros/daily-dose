@@ -40,7 +40,7 @@
 				var sourceElement = event.target || event.srcElement;
 				
 				var className = sourceElement.className;
-				alert(sourceElement.nodeName+ ' ' +className)
+				alert(sourceElement.nodeName+' '+ sourceElement.id+ ' ' +className)
 				if(className.indexOf('allowScroll') > -1){
 					alert('found it');
 				} else {

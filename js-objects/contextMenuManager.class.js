@@ -127,7 +127,7 @@ contextMenuManager.prototype.buildRow = function(index, data, parent){
 			break;
 		case 'content':
 			var row = objectM.create('DIV',{'id':'menu-row-'+index, 'class':'menu-row', 'data':index},'width:100%;',parent);
-			var contentDiv = objectM.create('DIV', {'id':'menu-text'}, '', row );
+			var contentDiv = objectM.create('DIV', {'id':'menu-text','class':'allowScroll'}, '', row );
 				contentDiv.innerHTML = data[1];
 			break;
 		default:
