@@ -30,7 +30,7 @@
 }
 .vp-verticle div.button-container{
 	float:right;
-	margin:-50px -50px 0px 0px;
+	margin:-50px -40px 0px 0px;
 }
 .vp-verticle div.navigation-button{
   width:300px;
@@ -133,7 +133,7 @@
 }
 .vp-horizontal div.button-container{
 	float:right;
-	margin:-50px -50px 0px 0px;
+	margin:-50px -40px 0px 0px;
 }
 .vp-horizontal div.navigation-button{
   width:300px;
@@ -236,7 +236,7 @@
 }
 .vp-web div.button-container{
 	float:right;
-	margin:-50px -50px 0px 0px;
+	margin:-50px -40px 0px 0px;
 }
 .vp-web div.navigation-button{
   width:300px;
