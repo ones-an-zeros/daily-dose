@@ -100,7 +100,7 @@ contextMenuManager.prototype.show = function(page){
 	    objectM.appendText(this.title, this.menuTitle);
 	    
 	}
-	this.menuContent = objectM.create('DIV',{'id':'menu-content'},'', this.menuWindow );
+	this.menuContent = objectM.create('DIV',{'id':'menu-content','class':'allowScroll'},'', this.menuWindow );
 	for ( var i=0; i<this.menu.pages[this.currentPageShown].length; i++ ){
 	 	this.buildRow(i, this.menu.pages[this.currentPageShown][i], this.menuContent );
 	}

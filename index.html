@@ -39,7 +39,7 @@
 			document.addEventListener('touchmove', function(e){
 				var sourceElement = event.target || event.srcElement;
 				var className = sourceElement.className;
-				if(className.search('allowScroll')){
+				if(className.indexOf('allowScroll') > -1){
 					alert('found it');
 				} else {
 					alert('dont scroll');
