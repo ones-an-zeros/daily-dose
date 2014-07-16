@@ -114,7 +114,11 @@ contextMenuManager.prototype.buildRow = function(index, data, parent){
 		
 			var row = objectM.create('DIV',{'id':'menu-row-'+index, 'class':'menu-row quicksand-book-regular', 'data':index},'width:100%; height:'+this.rowHeight+'px;',parent);
 			if(data[1]=='Back'||data[1]=='Exit'){
-				var position = 'position:absolute;bottom:20px;left:20px;';
+				if(window.orientation=='0'|| window.orientation == '180'){
+					var position = 'position:absolute;bottom:20px;left:20px;';
+				} else {
+					var position = 'position:absolute;bottom:20px;right:20px;';
+				}
 			} else {
 				var position = '';
 			}
@@ -154,7 +158,7 @@ contextMenuManager.prototype.menuItemClicked = function(e, index){
 	if(typeof(action) == 'function'){
 		action.call();
 	}else if(this.ValidURL(action)){
-		window.open(action, '_blank');
+		navigator.app.loadUrl(action, { openExternal:true });
 	
 	}else if(typeof(action) == 'string'){
 		
