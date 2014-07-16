@@ -14,7 +14,7 @@
 	    <link rel="stylesheet" type="text/css" href="css/menu.css" />
 	    <link rel="stylesheet" type="text/css" href="css/quote-layout.css" />
 	    <link rel="stylesheet" type="text/css" href="css/navigation.css" />
-	    <!--<script src="outsource/admob.js" type="text/javascript"></script>-->
+	    <script src="outsource/admob.js" type="text/javascript"></script>
 	    <script src="js-objects/eventManager.class.js" type="text/javascript"></script>
 	    <script src="js-objects/layoutManager.class.js" type="text/javascript"></script>
 	    <script src="js-objects/objectManager.class.js" type="text/javascript"></script>
@@ -50,7 +50,7 @@
 		</script>
   	</head>
   	<!--onload="onLoad()" onresize="onResize()"-->
-  	<body style="overflow:hidden !important;">
+  	<body onload="onLoad()" onresize="onResize()">
 		<script type="text/javascript">
 			if(development == false){
 				document.addEventListener("deviceready", function(){

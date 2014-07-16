@@ -46,15 +46,13 @@ contextMenuManager.prototype.add = function(text, action, type, page){
 	switch(type){
 		case 'content':
 			this.addContent(text,page);
-			break;
+		break;
 		case 'button':
 		default:
 			this.addButton(text,action,page);
 			break;
 	}
 }
-
-
 contextMenuManager.prototype.addButton = function(text, action, page){
 	var item = [];
 	item.push('button');
@@ -122,24 +120,44 @@ contextMenuManager.prototype.buildRow = function(index, data, parent){
 			}
 			var buttonDiv = objectM.create('DIV', {'id':'menu-button'}, 'line-height:'+this.rowHeight+'px;'+position, row );
 				objectM.appendText(data[1],buttonDiv);
-				//buttonDiv.addEventListener('click',function(e){ objref.menuItemClicked(e, index); });
-				buttonDiv.addEventListener('touchend',function(e){ objref.menuItemClicked(e, index); });
+				buttonDiv.addEventListener('click',function(e){ objref.menuItemClicked(e, index); });
+				//buttonDiv.addEventListener('touchend',function(e){ objref.menuItemClicked(e, index); });
 			break;
 		case 'content':
 			var row = objectM.create('DIV',{'id':'menu-row-'+index, 'class':'menu-row', 'data':index},'width:100%;',parent);
 			var contentDiv = objectM.create('DIV', {'id':'menu-text','class':'allowScroll'}, '', row );
 				contentDiv.innerHTML = data[1];
-			break;
+		break;
+		case 'link':
+			alert('hi')
+		break;
 		default:
 	}
 }
-
+contextMenuManager.prototype.ValidURL = function(str) {
+ var pattern = new RegExp('^(https?:\\/\\/)?'+ // protocol
+  '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|'+ // domain name
+  '((\\d{1,3}\\.){3}\\d{1,3}))'+ // OR ip (v4) address
+  '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'+ // port and path
+  '(\\?[;&a-z\\d%_.~+=-]*)?'+ // query string
+  '(\\#[-a-z\\d_]*)?$','i'); // fragment locator
+  if(!pattern.test(str)) {
+    return false;
+  } else {
+    return true;
+  }
+}
 
 contextMenuManager.prototype.menuItemClicked = function(e, index){
 	var action  = this.menu.pages[this.currentPageShown][index][2];
+	
 	if(typeof(action) == 'function'){
 		action.call();
+	}else if(this.ValidURL(action)){
+		window.open(action, '_blank');
+	
 	}else if(typeof(action) == 'string'){
+		
 		if(action.indexOf(':') > -1){
 			action = action.split(":");
 			switch(action[0]){
@@ -151,6 +169,8 @@ contextMenuManager.prototype.menuItemClicked = function(e, index){
 					break;
 				default:
 			}
+		} else {
+			
 		}
 	}
 	this.dispatchEvent('menuItemClicked');
