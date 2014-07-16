@@ -13,6 +13,26 @@ function architect(){
 	this.currentDate = year+'-'+month+'-'+day;
 }
 architect.prototype.init = function(){
+	contextM.newMenu();
+	contextM.setTitle('Settings');
+	
+	var contentOne = "<h2>About Us</h2><span class='indent'>&nbsp;</span>Daily Dose started out as a little act of kindness that ended up meaning the world to someone.<br /><br /><span class='indent'>&nbsp;</span>My name is Nicole and I am a firm believer in the power of words and their ability to brighten someone's day up.<br /><br /><span class='indent'>&nbsp;</span>When my boyfriend Corey was working at a company called ABC mouse he was under constant stress. I began to notice more and more that his job was affecting his spirit and zest. Hoping to cheer him up, I began leaving little post-its with quotes of inspiration and messages of motivational sayings in his lunch bag.<br /><br /><span class='indent'>&nbsp;</span>He explained that finding the messages after a nerve-racking meeting made his whole day better and his worries easier to deal with. I was so happy that my small gesture cheered him up so much.<br /><br /><span class='indent'>&nbsp;</span>Together Corey and I developed Daily Dose with hopes that it can bring a smile to you when you need it most.";
+	var contentTwo = "<h2>What We Do</h2><span class='indent'>&nbsp;</span>Here at Daily Dose it is our goal to deliver you the best quotes and sayings to lift you up when you need it most.<br /><br /><span class='indent'>&nbsp;</span>The quotes come with a powerful punch of motivation designed to help you gain a new outlook on life. Need a simple push in the right direction? Daily Dose is the app for you!<br /><br /><span class='indent'>&nbsp;</span>Our fans are the most important thing to us so naturally we want to here from you! Therefore we are in the process of creating a user-submitted-quotes feature complete with ratings. In the meantime you can submit your questions, comments, or concerns in the \"Contact Us\" tab. Currently Daily Dose is only compatible with Android devices. We will be Apple friendly in a few weeks.<br /><br /><span class='indent'>&nbsp;</span>If you cannot download the app, no worries! Other options include liking us on Facebook, following us on Twitter, and following us on Instagram. You can also sign up to get daily quotes sent directly to your email!<br /><br /><span class='indent'>&nbsp;</span>Thank you for all your patience and support. We hope you have a wonderful experience on your journey towards inspiration."; 
+	var contentThree = "<h2>Contact Us</h2><strong>Address Info</strong><br />7440 North Sepulveda<br />Van Nuys, CA, 91405<br /><br /><strong>Website</strong>: <a href='http://www.dailydosenow.com'>DailyDoseNow.com</a><br /><strong>Email: </strong><a href='mailto:Nicole.DailyDose@gmail.com?Subject=How%20acan%20awe%20abe%20aof%20aservice?' target='_top'>Nicole.DailyDose@gmail.com</a><br /><strong>Phone</strong>: (818) 386-8248 ";
+	var contentFour = '<h2>Social Networks</h2><img src="images/twitter.jpg" width="40" height="40" style="float: left;margin: 0 20px 0 0;" /><a href="https://twitter.com/dailydose_now">Follow Us On Twitter</a><br /><img src="images/facebook.jpg" width="40" height="40" style="float: left;margin: 0 20px 0 0;" /><a href="https://www.facebook.com/DailyDoseNow?ref=hl">Let\'s Get Personal </a>';
+	contextM.add('About Us', 'showPage:1');
+	contextM.add('What We Do', 'showPage:2');
+	contextM.add('Contact Us', 'showPage:3');
+	contextM.add('Social Networking', 'showPage:4');
+	contextM.add('Exit', 'close:true',0);
+	contextM.add(contentOne, '', 'content', 1);
+	contextM.add('Back', 'showPage:0', 'button', 1);
+	contextM.add(contentTwo, '', 'content', 2);
+	contextM.add('Back', 'showPage:0', 'button', 2);
+	contextM.add(contentThree, '', 'content', 3);
+	contextM.add('Back', 'showPage:0', 'button', 3);
+	contextM.add(contentFour, '', 'content', 4);
+	contextM.add('Back', 'showPage:0', 'button', 4);
 	this.buildHeader();
 	this.buildQuoteBox();
 	var now = new Date()
@@ -52,39 +72,11 @@ architect.prototype.buildHeader = function(){
 
 architect.prototype.openNavigationMenu = function(){
 	var objref = this;
-	
-	var content = "Myself ( Corey Rosamond ) And Nicole Pham developed and designed daily dose after I left a company called ABCMouse.com. It was a very stressfull job for me one that I wanted very much";
-	content += " to do the best I could at, to impress my superiors. Nicole saw how much stress I was under and started putting these little post-it notes in my lunches. The first time I found one was after a very ";
-	content += "stressfull meeting, my reaction was amazing it made my whole day just a little better and needless to say made my worries a bit easyer to deal with. Now I foolishly did not mention this soon ";
-	content += "enough to Nicole and she stoped. Needless to say I went to her and asked why, she said she did not realize they were that important to me and started again. After I left the company Nicole came ";
-	content += "to me with the idea for this app and here we are. I guess the point of that story is we simply hope that Daily Dose can be that Nicole to those that need it."
-	
-	contextM.newMenu();
-	contextM.setTitle('Menu');
-	contextM.add('About', 'showPage:1');
-	contextM.add('Exit', 'close:true');
-	contextM.add(content, '', 'content', 1);
-	contextM.add('Back', 'showPage:0', 'button', 1);
 	contextM.show();
 	//this.aboutPopup();
 }
 
 
-architect.prototype.aboutPopup = function(){
-	var content = "<br /><span>Myself ( Corey Rosamond ) And Nicole Pham developed and designed daily dose after I left a company called ABCMouse.com. It was a very stressfull job for me one that I wanted very much";
-	content += " to do the best I could at, to impress my superiors. Nicole saw how much stress I was under and started putting these little post-it notes in my lunches. The first time I found one was after a very ";
-	content += "stressfull meeting, my reaction was amazing it made my whole day just a little better and needless to say made my worries a bit easyer to deal with. Now I foolishly did not mention this soon ";
-	content += "enough to Nicole and she stoped. Needless to say I went to her and asked why, she said she did not realize they were that important to me and started again. After I left the company Nicole came ";
-	content += "to me with the idea for this app and here we are. I guess the point of that story is we simply hope that Daily Dose can be that Nicole to those that need it."
-	popupM.create({
-			'overlay':true,
-			'height':'1300px',
-			'width':'1000px',
-			'closeText':'close',
-			'title':'What is Daily Dose',
-			'content':content
-	});
-}
 architect.prototype.buildQuoteBox = function(){
 	var viewport = this.viewport;
 	this.displayedQuote = this.currentDate;
