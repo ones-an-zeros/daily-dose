@@ -36,7 +36,11 @@
 			Cufon.replace('.quicksand-light-oblique-regular', { fontFamily: 'Quicksand Light Oblique Regular', hover: true }); 
 		</script>
 		<script type="text/javascript">
-			document.addEventListener('touchmove', function(e){e.preventDefault()}, false);
+			document.addEventListener('touchmove', function(e){
+				var sourceElement = event.target || event.srcElement;
+				alert(sourceElement);
+				e.preventDefault()
+			}, false);
 			
 		</script>
   	</head>
