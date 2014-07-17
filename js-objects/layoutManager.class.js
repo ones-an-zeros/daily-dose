@@ -17,14 +17,14 @@ layoutManager.prototype.drawStage = function(){
 		var className = 'vp-verticle';
 		var height = this.vHeight;
 		var width = this.vWidth;
-		if(this.windowWidthV==null){ this.getSize(); }
+		this.getSize();
 		var windowHeight = this.windowHeightV;
 		var windowWidth = this.windowWidthV;
 	} else if(window.orientation == '90' || window.orientation == '-90'){
 		var className = 'vp-horizontal';
 		var height = this.hHeight;
 		var width = this.hWidth;
-		if(this.windowWidthH==null){ this.getSize(); }
+		this.getSize();
 		var windowHeight = this.windowHeightH;
 		var windowWidth = this.windowWidthH;
 	} else {
