@@ -304,11 +304,12 @@ architect.prototype.displayQuote = function( data ){
 	data = JSON.parse(data);
 	var dParts = data.date.split(" "); 
 	var baseDate = dParts[0];
+	architect.displayedQuote = baseDate;
 	architect.quotes[baseDate] = new Array();
 	architect.quotes[baseDate]['author'] = data['author'];
 	architect.quotes[baseDate]['quote'] = data['quote'];
 	architect.quoteText.innerHTML = '"'+data['quote']+'"';
-	architect.quoteDate.innerHTML = architect.formatDate(baseDate);
+	architect.quoteDate.innerHTML = baseDate;
 	architect.quoteAuthor.innerHTML = "- "+data['author'];
 	if(architect.storeQuote == true){
 		architect.storeQuote = false;
