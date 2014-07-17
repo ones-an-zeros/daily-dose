@@ -54,15 +54,17 @@
 		<script type="text/javascript">
 			if(development == false){
 				document.addEventListener("deviceready", function(){
-					eventM 		= new eventManager();
-					requestM	= new requestManager();
-					objectM 	= new objectManager();
-					layoutM 	= new layoutManager(1080,1920);
-					contextM  	= new contextMenuManager();
-					popupM 		= new popupManager();
-					architect 	= new architect();
-					architect.init();
-					Cufon.refresh();
+					setTimeout(function(){
+						eventM 		= new eventManager();
+						requestM	= new requestManager();
+						objectM 	= new objectManager();
+						layoutM 	= new layoutManager(1080,1920);
+						contextM  	= new contextMenuManager();
+						popupM 		= new popupManager();
+						architect 	= new architect();
+						architect.init();
+						Cufon.refresh();
+					},500);
 				}, false);
 			} else {
 				eventM 		= new eventManager();
