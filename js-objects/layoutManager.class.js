@@ -13,6 +13,11 @@ function layoutManager( width, height ){
     this.drawStage();
 }
 layoutManager.prototype.drawStage = function(){
+	if(this.viewport!=null){
+		this.viewport.style.display="none";
+		this.viewport.style.visibility="hidden";
+	}
+	var body = this.body;
 	if(window.orientation=='0'|| window.orientation == '180'){
 		var className = 'vp-verticle';
 		var height = this.vHeight;
@@ -20,6 +25,8 @@ layoutManager.prototype.drawStage = function(){
 		this.getSize();
 		var windowHeight = this.windowHeightV;
 		var windowWidth = this.windowWidthV;
+		body.style.width = windowWidth+'px'
+		body.style.height = windowHeight+'px';
 	} else if(window.orientation == '90' || window.orientation == '-90'){
 		var className = 'vp-horizontal';
 		var height = this.hHeight;
@@ -27,6 +34,8 @@ layoutManager.prototype.drawStage = function(){
 		this.getSize();
 		var windowHeight = this.windowHeightH;
 		var windowWidth = this.windowWidthH;
+		body.style.width = windowWidth+'px'
+		body.style.height = windowHeight+'px';
 	} else {
 		var height = this.vHeight;
 		var width = this.vWidth;
@@ -34,12 +43,14 @@ layoutManager.prototype.drawStage = function(){
 		//var className = 'vp-horizontal';
 		var windowHeight = this.windowHeightV;
 		var windowWidth = this.windowWidthV;
+		body.style.width = windowWidth+'px'
+		body.style.height = windowHeight+'px';
 	}
 	// if we are mobile find our scale
 	if(this.isMobile()){ var scaleWidth = (windowWidth/width);
 	} else { var scaleWidth = '.4'; }
 	// Make the viewport if it doesent exist
-	if(this.viewport == null){ this.viewport = objectM.create('DIV',{},'',this.body);  }
+	if(this.viewport == null){ this.viewport = objectM.create('DIV',{},'display:none;visibility:hidden;',this.body);  }
 	
 	// Set all the transforms
 	var viewport = this.viewport

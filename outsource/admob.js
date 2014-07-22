@@ -70,7 +70,7 @@ function onResize() {
     var msg = 'web view: ' + window.innerWidth + ' x ' + window.innerHeight;
     document.getElementById('sizeinfo').innerHTML = msg;
 }
-
+/*
 document.addEventListener('touchmove',function(e){
     e = e || window.event;
     var target = e.target || e.srcElement;
@@ -88,3 +88,4 @@ document.addEventListener('touchmove',function(e){
     }
     //target is a reference to an $altNav element here, e is the event object, go mad
 },false);
+*/
