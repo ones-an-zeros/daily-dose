@@ -9,7 +9,6 @@ function layoutManager( width, height ){
     this.heightHorizontal = false;
     this.height = null;
     this.width = null;
-    this.getSize();
     this.drawStage();
 }
 layoutManager.prototype.drawStage = function(){
@@ -18,34 +17,25 @@ layoutManager.prototype.drawStage = function(){
 		this.viewport.style.visibility="hidden";
 	}
 	var body = this.body;
-	if(window.orientation=='0'|| window.orientation == '180'){
+	var orientation = this.getSize();
+	if(orientation == 'V'){
 		var className = 'vp-verticle';
 		var height = this.vHeight;
 		var width = this.vWidth;
-		this.getSize();
 		var windowHeight = this.windowHeightV;
 		var windowWidth = this.windowWidthV;
 		body.style.width = windowWidth+'px'
 		body.style.height = windowHeight+'px';
-	} else if(window.orientation == '90' || window.orientation == '-90'){
+	} else {
 		var className = 'vp-horizontal';
 		var height = this.hHeight;
 		var width = this.hWidth;
-		this.getSize();
 		var windowHeight = this.windowHeightH;
 		var windowWidth = this.windowWidthH;
 		body.style.width = windowWidth+'px'
 		body.style.height = windowHeight+'px';
-	} else {
-		var height = this.vHeight;
-		var width = this.vWidth;
-		var className = 'vp-web';
-		//var className = 'vp-horizontal';
-		var windowHeight = this.windowHeightV;
-		var windowWidth = this.windowWidthV;
-		body.style.width = windowWidth+'px'
-		body.style.height = windowHeight+'px';
 	}
+	this.orientation = orientation;
 	// if we are mobile find our scale
 	if(this.isMobile()){ var scaleWidth = (windowWidth/width);
 	} else { var scaleWidth = '.4'; }
@@ -62,6 +52,8 @@ layoutManager.prototype.drawStage = function(){
 	viewport.style.msTransform = "scale("+scaleWidth+")";
 	viewport.style.OTransform = "scale("+scaleWidth+")";
 	viewport.style.transform = "scale("+scaleWidth+")";
+	viewport.style.display = 'block';
+	viewport.style.visibility = "visible";
 }
 
 layoutManager.prototype.isMobile = function() { 
@@ -77,30 +69,28 @@ layoutManager.prototype.isMobile = function() {
 // Get the size of the stage
 layoutManager.prototype.getSize = function(){
     var winW = 630, winH = 460;
-    if(this.isMobile){
-	    winW = screen.width;
-	    winH = screen.height;
-	} else { 
-	    if (document.body && document.body.offsetWidth) {
-			winW = document.body.offsetWidth;
-			winH = document.body.offsetHeight;
-	    }
-	    if (document.compatMode=='CSS1Compat' &&
-			document.documentElement &&
-			document.documentElement.offsetWidth ) {
-			winW = document.documentElement.offsetWidth;
-			winH = document.documentElement.offsetHeight;
-	    }
-	    if (window.innerWidth && window.innerHeight) {
-			winW = window.innerWidth;
-			winH = window.innerHeight;
-	    }
-   	}
-    if(window.orientation=='0'|| window.orientation == '180'){
+    if (document.body && document.body.offsetWidth) {
+		winW = document.body.offsetWidth;
+		winH = document.body.offsetHeight;
+    }
+    if (document.compatMode=='CSS1Compat' &&
+		document.documentElement &&
+		document.documentElement.offsetWidth ) {
+		winW = document.documentElement.offsetWidth;
+		winH = document.documentElement.offsetHeight;
+    }
+    if (window.innerWidth && window.innerHeight) {
+		winW = window.innerWidth;
+		winH = window.innerHeight;
+    }
+    if(winH>winW){ var orientation = 'V';
+   	} else { var orientation = 'H'; }
+    if(orientation == 'V'){
 	    this.windowHeightV = winH;
 	    this.windowWidthV = winW;
-    } else if(window.orientation == '90' || window.orientation == '-90'){
+    } else {
 	    this.windowHeightH = winH;
 	    this.windowWidthH = winW;
     }
+    return orientation;
 }

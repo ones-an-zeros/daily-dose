@@ -63,12 +63,11 @@
 						architect 	= new architect();
 						architect.init();
 						Cufon.refresh();
-						//window.addEventListener("resize", function() {
-							///setTimeout(function(){
-								//architect.changeOrientation();	
-						  	//},500);
-						//}, false);
-						
+						window.addEventListener("resize", function() {
+							setTimeout(function(){
+								layoutM.drawStage();
+						  	},500);
+						}, false);
 					},500);
 				}, false);
 			} else {
