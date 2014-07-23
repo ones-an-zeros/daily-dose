@@ -114,8 +114,6 @@
 	font-size:26px;
 	line-height:30px;
 	margin-top:10px;
-	overflow:scroll;
-	height:300px !important;
 }
 .vp-verticle #menu-content p{
 	text-indent:25px;
@@ -193,8 +191,6 @@
 	font-size:26px;
 	line-height:30px;
 	margin-top:10px;
-	overflow:scroll;
-	height:300px !important;
 }
 .vp-horizontal #menu-content p{
 	text-indent:25px;

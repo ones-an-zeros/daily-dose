@@ -30,7 +30,7 @@ architect.prototype.init = function(){
 	contextM.add('Contact Us', 'showPage:3');
 	contextM.add('Social Networking', 'showPage:4');
 	contextM.add('Exit', 'close:true',0);
-	contextM.add(contentOne, '', 'content', 3);
+	contextM.add(contentThree, '', 'content', 3);
 	contextM.add('Back', 'showPage:0', 'button', 3);
 	contextM.add(contentFour, '', 'content', 4);
 	contextM.add('Back', 'showPage:0', 'button', 4);

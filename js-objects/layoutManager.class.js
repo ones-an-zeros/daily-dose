@@ -13,8 +13,8 @@ function layoutManager( width, height ){
 }
 layoutManager.prototype.drawStage = function(){
 	if(this.viewport!=null){
-		this.viewport.style.display="none";
-		this.viewport.style.visibility="hidden";
+		//this.viewport.style.display="none";
+		//this.viewport.style.visibility="hidden";
 	}
 	var body = this.body;
 	var orientation = this.getSize();
@@ -40,7 +40,7 @@ layoutManager.prototype.drawStage = function(){
 	if(this.isMobile()){ var scaleWidth = (windowWidth/width);
 	} else { var scaleWidth = '.4'; }
 	// Make the viewport if it doesent exist
-	if(this.viewport == null){ this.viewport = objectM.create('DIV',{},'display:none;visibility:hidden;',this.body);  }
+	if(this.viewport == null){ this.viewport = objectM.create('DIV',{},'',this.body);  }
 	
 	// Set all the transforms
 	var viewport = this.viewport
@@ -52,8 +52,10 @@ layoutManager.prototype.drawStage = function(){
 	viewport.style.msTransform = "scale("+scaleWidth+")";
 	viewport.style.OTransform = "scale("+scaleWidth+")";
 	viewport.style.transform = "scale("+scaleWidth+")";
-	viewport.style.display = 'block';
-	viewport.style.visibility = "visible";
+	//setTimeout(function(){
+		//viewport.style.display = 'block';
+		//viewport.style.visibility = "visible";
+	//},5);
 }
 
 layoutManager.prototype.isMobile = function() { 
