@@ -239,3 +239,27 @@
 .vp-horizontal .menu-row{
 	margin-top:20px;
 }
+
+ #settingsText{
+	margin: 0px auto;
+	padding: 0px;
+	color:#333333;
+	background-color: #F4F4F4;
+	font-size: 45px;
+	line-height: 55px;
+}
+
+#settingsTime{
+	margin: 0px auto;
+	padding: 0px;
+	background-color: #F4F4F4;
+	font-size: 45px;
+	line-height: 55px;
+}
+#settingsTime{
+	margin: 0px auto;
+	padding: 0px;
+	background-color: #F4F4F4;
+	font-size: 45px;
+	line-height: 55px;
+}

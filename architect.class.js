@@ -29,6 +29,7 @@ architect.prototype.init = function(){
 	contextM.add('What We Do', 'http://www.dailydosenow.com/index.php?page=what-we-do');
 	contextM.add('Contact Us', 'showPage:3');
 	contextM.add('Social Networking', 'showPage:4');
+	contextM.add('Settings', 'showPage:5');
 	contextM.add('Exit', 'close:true',0);
 	contextM.add(contentThree, '', 'content', 3);
 	contextM.add('Back', 'showPage:0', 'button', 3);
@@ -36,25 +37,98 @@ architect.prototype.init = function(){
 	contextM.add('Back', 'showPage:0', 'button', 4);
 	this.buildHeader();
 	this.buildQuoteBox();
-	var now = new Date()
-		now.setHours(9);
-		now.setMinutes(0);
-		now.setSeconds(0);
+	
 	if(development == false ){
-		window.plugin.notification.local.add({
-		    id:      1,
-		    title:   'Reminder',
-		    message: 'Dont forget to get your Daily Dose of inspiration!',
-		    repeat:  'daily',
-		    date:    now
-		});
 		this.checkConnection();
 		this.openDB();
 	}else{
 		requestM.ajaxGet('http://54.193.105.189/app-responder/daily-dose.inc.php', {'action':'get-quote','date':this.currentDate}, this.displayQuote, false);
 	}
-	layoutM.viewport.style.display = 'block';
-	layoutM.viewport.style.visibility = "visible";
+}
+
+//This function builds the settings page do to the fact that settings values can change.
+
+architect.prototype.buildSettingsPage = function(hour,minute){
+	var hourStr = '';
+	var minStr = '';
+	contextM.clearPage(5);
+
+	for(var i = 0; i<24;i++){
+		var leadingZero = (i<10)?'0':'';
+		if(hour == i){
+			hourStr = hourStr + '<option selected="selected" value="'+i+'">'+leadingZero+i+'</option>';
+		}else{
+			hourStr = hourStr + '<option value="'+i+'">'+leadingZero+i+'</option>';
+		}
+	}
+	for(var i = 0; i<46;i+=15){
+		var leadingZero = (i<10)?'0':'';
+		if(minute == i){
+			minStr = minStr + '<option selected="selected" value="'+i+'">'+leadingZero+i+'</option>';
+		}else{
+			minStr = minStr + '<option value="'+i+'">'+leadingZero+i+'</option>';
+		}
+	}
+	
+	var settingsContent = ''+
+		'<div class="menu-row quicksand-book-regular" id="settingsText">Select the time you would like to be reminded about new quotes</div>'+
+		'<div class="menu-row quicksand-book-regular" id="settingsTime">'+
+			'<label id="hourLabel" for="hourInput">Hour:</label>'+
+				'<select id="hourInput">'+
+					hourStr+	
+				'</select>'+
+			'<label id="minLabel" for="minInput">Minute:</label>'+
+				'<select id="minInput">'+
+					minStr+
+				'</select>'+
+		'</div>'+
+		'';
+	contextM.add(settingsContent, '', 'content', 5);
+	contextM.add('Accept', architect.settingsAccept, 'button', 5);
+	contextM.add('Back', 'showPage:0', 'button', 5);
+}
+
+//The function called when the accept button is pressed.
+architect.prototype.settingsAccept = function(){
+	architect.removeNotification();
+	var hour = document.getElementById('hourInput');
+	var minute = document.getElementById('minInput');
+	architect.setNotification(parseInt(hour.value), parseInt(minute.value));
+	contextM.show(0);
+}
+
+//A function to set the notification and store the values in the db.
+architect.prototype.setNotification = function(hour,minute){
+console.log('hour: '+hour);
+console.log('minute: '+minute);
+	var now = new Date()
+		now.setHours(hour);
+		now.setMinutes(minute);
+		now.setSeconds(0);
+
+	window.plugin.notification.local.add({
+		    id:      1,
+		    title:   'Reminder',
+		    message: 'Dont forget to get your Daily Dose of inspiration!',
+		    repeat:  'daily',
+		    date:    now
+	});
+	architect.addSettingsToDB('hour', hour);
+	architect.addSettingsToDB('minute', minute);
+	architect.buildSettingsPage(hour,minute);
+}
+
+//This function removes the notification so that it can get reset in the setNotification function.
+architect.prototype.removeNotification = function(){
+	window.plugin.notification.local.cancel(1);
+}
+
+
+architect.prototype.setOrientation = function(){
+	
+}
+architect.prototype.changeOrientation = function(){
+	layoutM.drawStage();
 }
 architect.prototype.buildHeader = function(){
 	var viewport = this.viewport;
@@ -145,6 +219,33 @@ architect.prototype.addQuote = function( data ){
 	architect.quotes[baseDate]['quote'] = data['quote'];
 }
 
+architect.prototype.checkSettings = function(){
+	this.db.transaction(function(tx) {
+			tx.executeSql("SELECT * FROM settings;",[],
+				function(tx,result){
+					var len = result.rows.length;
+					if(len > 0){
+						for(var i=0; i < len; i++){
+							switch(result.rows.item(i).settings_key){
+								case 'hour':
+									var hour = result.rows.item(i).value;
+									break;
+								case 'minute':
+									var minute = result.rows.item(i).value;
+									break;
+								default:
+							}
+						}
+						console.log('savedTime: '+ hour+', '+minute);
+						architect.setNotification(hour,minute);
+					}else{
+						console.log('defaultTime: 9,0');
+						architect.setNotification(9,0);
+					}
+				},this.errorCB);
+	},this.errorCB);
+}
+
 architect.prototype.checkQuote = function(date){
 if(date == void 0) date = architect.currentDate;
 	if(date == architect.currentDate){
@@ -206,6 +307,12 @@ architect.prototype.getQuote = function(date){
 	}
 }
 
+architect.prototype.addSettingsToDB = function(key, value){
+	this.db.transaction(function(tx) {
+		tx.executeSql("INSERT or replace into settings ('settings_key', 'value') VALUES (?, ?);", [key, value]);
+	},this.errorCB);
+}
+
 architect.prototype.addQuoteToDB = function(author, quote, date){
 	this.db.transaction(function(tx) {
 		tx.executeSql("INSERT INTO post ('quote_date', 'quote_author', 'quote') VALUES (?, ?, ?);", [date, author,quote]);
@@ -221,7 +328,9 @@ architect.prototype.openDB = function(){
 
 architect.prototype.createDB = function(tx) {
     tx.executeSql("CREATE TABLE IF NOT EXISTS 'post' ('quote_key' integer not null primary key autoincrement, 'quote_date' text not null default current_timestamp, 'quote_author' text not null, 'quote' text not null);");
+	tx.executeSql("CREATE TABLE IF NOT EXISTS 'settings' ('settings_key' text not null , 'value' integer);");
 	architect.checkQuote();
+	architect.checkSettings();
 }
 
 architect.prototype.errorCB = function(err) {

@@ -193,6 +193,15 @@ contextMenuManager.prototype.clear = function(){
 	objectM.remove( this.menuWindow );
 }
 
+contextMenuManager.prototype.clearPage = function(page){
+	if(page && typeof(page) == 'number'){
+		if(this.items[page]){
+			this.items[page] = [];
+			this.menu.pages[page] = [];
+		}
+	}
+}
+
 contextMenuManager.prototype.newMenu = function(){
 	this.menu = new Object();
 	this.items = [];
